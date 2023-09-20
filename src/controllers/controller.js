@@ -1,4 +1,4 @@
-const Planos = require("../models/model")
+const { Planos, Ramais } = require("../models/model")
 
 
 async function createPlan(req, res) {
@@ -17,33 +17,47 @@ async function createPlan(req, res) {
 
 
 async function getPlans(req, res) {
-    let plans = await Planos.find({})
-    res.json(plans)
+    try {
+        let plans = await Planos.find({})
+        res.json(plans)
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar planos' });
+    }
 }
 
 async function findPlan(req, res) {
-    const input = req.query.nome
-    let plan = await Planos.findOne({ nome: input })
+    let plan = await Planos.findOne({ nome: req.query.nome })
     res.json(plan)
 }
 
 async function updatePlan(req, res) {
-    let { id, nome, login, password, web, cod, tel, email, att, guia, senha, obs } = req.body
-    nome = nome.toLowerCase()
-        nome: nome,
-        login: login,
-        password: password,
-        web: web,
-        data: {
-            cod: cod,
-            tel: tel,
-            email: email,
-            att: att,
-            guia: guia,
-            senha: senha,
-            obs: obs,
-        }
-    })
+    try {
+        let { id, nome, login, password, web, cod, tel, email, att, guia, senha, obs } = req.body
+        nome = nome.toLowerCase()
+        let autorizado = await Planos.findOneAndUpdate({ _id: id }, {
+            nome: nome,
+            login: login,
+            password: password,
+            web: web,
+            data: {
+                cod: cod,
+                tel: tesl,
+                email: email,
+                att: att,
+                guia: guia,
+                senha: senha,
+                obs: obs,
+            }
+        },
+            {
+                new: true
+            })
+        res.json(autorizado)
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Erro ao atualizar o plano' });
+    }
 }
 
 

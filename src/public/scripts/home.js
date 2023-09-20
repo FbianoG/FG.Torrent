@@ -4,7 +4,7 @@ let btn = document.querySelector('#btn')
 
 btnFind.addEventListener('click', async () => {
     try {
-        let api = await fetch(`/find?nome=${input.value}`)
+        let api = await fetch(`/find?nome=${input.value.toLowerCase()}`)
         let data = await api.json()
         console.log(data);
         if (data) {

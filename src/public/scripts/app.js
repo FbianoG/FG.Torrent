@@ -15,8 +15,6 @@ get()
 
 function gera() {
 
-
-
     // Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento com transition já definida)
     document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => {
         e.target.style.transition = '400ms'

@@ -19,4 +19,13 @@ const Planos = mongoose.model('planos', {
     },
 })
 
-module.exports = Planos
+const Ramais = mongoose.model('ramais', {
+    setor: String,
+    posto: String,
+    ramal: Number
+})
+
+module.exports = {
+    Planos,
+    Ramais
+}
