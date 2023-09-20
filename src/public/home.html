@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FG.Torrent</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="./scripts/home.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <ul>
+            <h3>FG</h3>
+            <li class="active"><i class="fa-solid fa-house"></i></li>
+            <li><i class="fa-solid fa-notes-medical"></i></li>
+            <li><i class="fa-solid fa-suitcase-medical"></i></li>
+            <li><i class="fa-solid fa-file-waveform"></i></li>
+            <li><i class="fa-solid fa-address-card"></i></li>
+            <li><i class="fa-solid fa-phone"></i></li>
+
+        </ul>
+        <nav>
+            <a href=""><i class="fa-solid fa-caret-right"></i>Home</a>
+            <a href="index.html"><i class="fa-solid fa-caret-right"></i>Planos, Acessos</a></li>
+            <a href="termos.html"><i class="fa-solid fa-caret-right"></i>Documentos</a>
+            <a href="guias.html"><i class="fa-solid fa-caret-right"></i>Guias, Termos</a>
+            <a href="cadastro.html"><i class="fa-solid fa-caret-right"></i>Cadastro</a>
+            <a href="ramais.html"><i class="fa-solid fa-caret-right"></i>Ramais</a>
+            <p><i class="fa-solid fa-code fa-fade"></i>Fabiano Gonçalves</p>
+        </nav>
+
+    </header>
+
+    <div class="container">
+
+        <form>
+            <label for="nome">Plano:</label>
+            <input type="text" id="nome-find">
+            <input type="button" value="Localizar" id="btn-find">
+        </form>
+        
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <form action="/createPlan" method="post">
+            <label for="nome">ID:</label>
+            <input type="text" name="id" >
+            <br>
+            <label for="nome">Plano:</label>
+            <input type="text" name="nome" required>
+            <br>
+            <label for="nome">Login:</label>
+            <input type="text" name="login">
+            <br>
+            <label for="nome">Senha:</label>
+            <input type="text" name="password">
+            <br>
+            <label for="nome">Site:</label>
+            <input type="text" name="web">
+            <br>
+            <label for="nome">Cod. Prestador:</label>
+            <input type="text" name="cod">
+            <br>
+            <label for="nome">Telefone:</label>
+            <input type="text" name="tel">
+            <br>
+            <label for="nome">Email:</label>
+            <input type="text" name="email">
+            <br>
+            <label for="nome">Autorização:</label>
+            <input type="text" name="att">
+            <br>
+            <label for="nome">Requer Guia:</label>
+            <input type="text" name="guia">
+            <br>
+            <label for="nome">Requer Senha:</label>
+            <input type="text" name="senha">
+            <br>
+            <label for="nome">Observação:</label>
+            <textarea type="text" name="obs"></textarea>
+            <br>
+            <input type="submit" value="Adicionar Plano" id="btn">
+        </form>
+
+        <form action="/finda" method="post">
+            <input type="text" name="name">
+            <input type="text" name="att">
+            <input type="submit" value="eviar">
+        </form>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,559 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FG.Torrent</title>
+    <link rel="shortcut icon" href="../imagens/favicon.png" type="image/x-icon">
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            /* text-transform: uppercase; */
+        }
+
+        .papel {
+            overflow: hidden;
+            height: 1360px;
+            width: 1000px;
+            margin-bottom: 0;
+        }
+
+        img {
+            width: 1000px;
+            height: 1400px;
+            margin-bottom: 0px;
+        }
+
+        body {
+            margin: 0 auto;
+            width: 1000px;
+            background: #707070;
+        }
+
+        .dados {
+            width: 1000px;
+            height: 1400px;
+            position: relative;
+            top: -1295px;
+            border: 1px solid rgba(255, 0, 0, 0);
+        }
+
+        p {
+            height: 18px;
+            background: white;
+            margin-left: 50px;
+            padding-left: 5px;
+            width: 100px;
+            z-index: 1;
+        }
+
+        p#guia {
+            position: relative;
+            left: 190px;
+            top: 5px;
+            width: 475px;
+        }
+
+        p#dataAut {
+            position: relative;
+            top: 21px;
+            width: 205px;
+        }
+
+        p#senha {
+            position: relative;
+            top: -13px;
+            left: 226px;
+            width: 417px;
+        }
+
+        p#carteira {
+            position: relative;
+            top: 15px;
+            width: 410px;
+        }
+
+        p#nome {
+            position: relative;
+            top: 29px;
+            width: 555px;
+        }
+
+        p#cnpj1 {
+            position: relative;
+            top: 58px;
+            width: 285px;
+        }
+
+        p#contratado1 {
+            position: relative;
+            left: 307px;
+            top: 23px;
+            width: 580px;
+        }
+
+        p#medico {
+            position: relative;
+            top: 48px;
+            width: 310px;
+        }
+
+        p#conselho {
+            position: relative;
+            left: 330px;
+            top: 15px;
+            width: 68px;
+            text-align: center;
+        }
+
+        p#crm {
+            position: relative;
+            top: -20px;
+            left: 422px;
+            width: 288px;
+        }
+
+        p#uf {
+            position: relative;
+            width: 30px;
+            top: -54px;
+            left: 733px;
+            text-align: center;
+        }
+
+        p#cbo {
+            position: relative;
+            left: 793px;
+            top: -87px;
+            width: 97px;
+        }
+
+        p#cnpj2 {
+            position: relative;
+            top: -49px;
+            width: 285px;
+        }
+
+        p#contratado2 {
+            position: relative;
+            top: -83px;
+            left: 309px;
+            width: 360px;
+        }
+
+        p#carater {
+            display: inline-block;
+            position: relative;
+            top: -86px;
+            width: 123px;
+            text-align: center;
+        }
+
+        p#tipo {
+            display: inline-block;
+            position: relative;
+            text-align: center;
+            top: -86px;
+            left: -36px;
+            width: 92px;
+        }
+
+        p#regime {
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            top: -86px;
+            left: -27px;
+            width: 41px;
+        }
+
+        p#diariaSol {
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            top: -86px;
+            left: -6px;
+            width: 74px;
+        }
+
+        p#anexo {
+            position: relative;
+            top: -88px;
+            width: 850px;
+        }
+
+        p#cid {
+            background: none;
+            position: relative;
+            top: 90px;
+            width: 113px;
+        }
+
+        .tuss {
+            background: #fff;
+            width: 868px;
+            height: 228px;
+            position: relative;
+            top: 125px;
+            left: 68px;
+        }
+
+        .tabela {
+            width: 50px;
+        }
+
+        .tabela p {
+            margin-left: 10px;
+            width: 20px;
+            margin-bottom: -15px;
+        }
+
+        .codigos {
+            position: relative;
+        }
+
+        .codigos {
+            position: relative;
+            top: -95px;
+            left: 50px;
+            width: 170px;
+        }
+
+        .codigos p {
+            margin-left: 10px;
+            width: 120px;
+            margin-bottom: -15px;
+        }
+
+        .descricao {
+            position: relative;
+            top: -190px;
+            left: 220px;
+            width: 480px;
+            z-index: 1;
+        }
+
+        .descricao p {
+            margin-left: 0px;
+            width: 460px;
+            margin-bottom: -15px;
+        }
+
+        .quantidade {
+            position: relative;
+            width: 90px;
+            top: -285px;
+            left: 700px;
+            text-align: center;
+        }
+
+        .quantidade p {
+            width: 90px;
+            margin-left: 0;
+            margin-bottom: -15px;
+        }
+
+        .quantidadeAut {
+            position: relative;
+            width: 80px;
+            top: -380px;
+            left: 795px;
+            text-align: center;
+        }
+
+        .quantidadeAut p {
+            width: 80px;
+            margin-left: 0;
+            margin-bottom: -15px;
+        }
+
+        #diariaAut {
+            position: relative;
+            top: 162px;
+            left: 240px;
+            text-align: center;
+        }
+
+        #leito {
+            position: relative;
+            top: 128px;
+            left: 479px;
+        }
+
+        #cnpj3 {
+            position: relative;
+            top: 137px;
+            left: -3px;
+            width: 235px;
+        }
+
+        #contratado3 {
+            position: relative;
+            width: 509px;
+            top: 103px;
+            left: 252px
+        }
+
+        #dataSol {
+            position: relative;
+            top: 191px;
+            width: 173px;
+            left: -3px;
+        }
+
+        #borda {
+            border: 7px solid white;
+            width: 924px;
+            position: relative;
+            height: 1295px;
+            top: -1114px;
+            left: 31px;
+            z-index: 0;
+        }
+
+        #tampo {
+            background: white;
+            position: relative;
+            top: -2409px;
+            width: 125px;
+            height: 58px;
+            left: 46px;
+        }
+
+        #logo {
+            position: relative;
+            width: 138px;
+            height: 113px;
+            top: -2510px;
+            left: 46px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="papel">
+        <img src="./imagens/guiaint.png" alt="">
+        <div class="dados">
+            <p id="guia"></p>
+            <p id="dataAut"></p>
+            <p id="senha"></p>
+            <p id="carteira"></p>
+            <p id="nome"></p>
+            <p id="cnpj1">60884855001207</p>
+            <p id="contratado1">CHN - Complexo Hospitalar de Niterói</p>
+            <p id="medico"></p>
+            <p id="conselho">CRM</p>
+            <p id="crm"></p>
+            <p id="uf">RJ</p>
+            <p id="cbo"></p>
+            <p id="cnpj2">60884855001207</p>
+            <p id="contratado2">CHN - Complexo Hospitalar de Niterói</p>
+            <p id="carater"></p>
+            <p id="tipo"></p>
+            <p id="regime">1</p>
+            <p id="diariaSol"></p>
+            <p id="anexo">Em anexo</p>
+            <p id="cid"></p>
+            <div class="tuss">
+                <div class="tabela">
+                    <p id="tb1"></p>
+                    <p id="tb2"></p>
+                    <p id="tb3"></p>
+                    <p id="tb4"></p>
+                    <p id="tb5"></p>
+                </div>
+                <div class="codigos">
+                    <p id="cod1"></p>
+                    <p id="cod2"></p>
+                    <p id="cod3"></p>
+                    <p id="cod4"></p>
+                    <p id="cod5"></p>
+                </div>
+                <div class="descricao">
+                    <p id="des1"></p>
+                    <p id="des2"></p>
+                    <p id="des3"></p>
+                    <p id="des4"></p>
+                    <p id="des5"></p>
+                </div>
+                <div class="quantidade">
+                    <p id="qtd1"></p>
+                    <p id="qtd2"></p>
+                    <p id="qtd3"></p>
+                    <p id="qtd4"></p>
+                    <p id="qtd5"></p>
+                </div>
+                <div class="quantidadeAut">
+                    <p id="qtda1"></p>
+                    <p id="qtda2"></p>
+                    <p id="qtda3"></p>
+                    <p id="qtda4"></p>
+                    <p id="qtda5"></p>
+                </div>
+            </div>
+            <p id="diariaAut"></p>
+            <p id="leito"></p>
+            <p id="cnpj3">60884855001207</p>
+            <p id="contratado3">CHN - Complexo Hospitalar de Niterói</p>
+            <p id="dataSol"></p>
+            <div id="borda" style="border: black;"></div>
+            <div id="tampo" style="background: none;"></div>
+            <img id="logo" src="" alt="" style="opacity: 0;">
+        </div>
+    </div>
+
+
+    <style>
+        @media print {
+            .papel {
+                margin-left: 0px;
+            }
+
+            p#dataAut {
+                outline: none;
+            }
+
+            p#anexo {
+                outline: none;
+            }
+
+            .descricao p {
+                outline: none;
+            }
+
+            p#diariaAut {
+                outline: none;
+            }
+
+            p#dataSol {
+                outline: none;
+            }
+        }
+
+        @page {
+            size: 210mm 290mm;
+            margin: 0;
+            margin-bottom: 0px;
+        }
+    </style>
+    <script>
+        let dadosPacienteJson = localStorage.getItem('dadosPaciente')
+        let dadosPaciente = JSON.parse(dadosPacienteJson)
+        console.log(dadosPaciente);
+        // Data
+        const data = new Date()
+        const dia = String(data.getDate()).padStart(2, "0")
+        const mes = String(data.getMonth() + 1).padStart(2, "0")
+        const ano = data.getFullYear()
+        const dataAtual = `${dia}/${mes}/${ano}`
+        dadosPaciente.dataAut = dadosPaciente.dataAut.split('-').reverse().join('/')
+        dadosPaciente.dataSol = dadosPaciente.dataSol.split('-').reverse().join('/')
+
+        document.getElementById("dataAut").innerText = dadosPaciente.dataAut
+        document.getElementById("dataSol").innerText = dadosPaciente.dataSol
+
+        // Pega os dados do LocalStorage
+        document.getElementById("guia").innerText = dadosPaciente.guia.toUpperCase()
+        document.getElementById("senha").innerText = dadosPaciente.senha.toUpperCase()
+        document.getElementById("carteira").innerText = dadosPaciente.carteira
+        document.getElementById("nome").innerText = dadosPaciente.nome
+        // document.getElementById("cnpj1").innerText = localStorage.getItem("cnpj1")
+        // document.getElementById("contratado1").innerText = localStorage.getItem("contratado")
+        document.getElementById("medico").innerText = dadosPaciente.medico
+        // document.getElementById("conselho").innerText = localStorage.getItem("conselho")
+        document.getElementById("crm").innerText = dadosPaciente.crm
+        // document.getElementById("uf").innerText = localStorage.getItem("uf")
+        // document.getElementById("cbo").innerText = localStorage.getItem("cbo")
+        // document.getElementById("cnpj2").innerText = localStorage.getItem("cnpj2")
+        // document.getElementById("contratado2").innerText = localStorage.getItem("contratado")
+        document.getElementById("carater").innerText = dadosPaciente.carater
+        document.getElementById("tipo").innerText = dadosPaciente.tipo
+        // document.getElementById("regime").innerText = localStorage.getItem("regime")
+        document.getElementById("diariaSol").innerText = dadosPaciente.diaria.padStart(2, '0')
+        // document.getElementById("anexo").innerText = localStorage.getItem("anexo")
+        // document.getElementById("cid").innerText = localStorage.getItem("cid")
+        document.getElementById("diariaAut").innerText = dadosPaciente.diaria.padStart(2, '0')
+        document.getElementById("leito").innerText = dadosPaciente.leito
+        // document.getElementById("cnpj3").innerText = localStorage.getItem("cnpj3")
+        // document.getElementById("contratado3").innerText = localStorage.getItem("contratado3")
+
+        // PROCEDIMENTOS
+        for (let i = 0; i < dadosPaciente.proced.length; i++) {
+            document.querySelector(`#cod${i + 1}`).innerText = dadosPaciente.proced[i]
+            document.querySelector(`#des${i + 1}`).innerText = dadosPaciente.des[i]
+            document.querySelector(`#qtd${i + 1}`).innerText = dadosPaciente.qtd[i].padStart(2, '0')
+            document.querySelector(`#qtda${i + 1}`).innerText = dadosPaciente.qtd[i].padStart(2, '0')
+            let valores = ['10102019', '10104020', '10104011']
+            if (valores.includes(document.querySelector(`#cod${i + 1}`).innerText)) {
+                document.querySelector(`#tb${i + 1}`).innerText = '22'
+            }
+            else if (document.querySelector(`#cod${i + 1}`).innerText == '') {
+                document.querySelector(`#tb${i + 1}`).innerText = ''
+                document.querySelector(`#qtd${i + 1}`).innerText = ''
+                document.querySelector(`#qtda${i + 1}`).innerText = ''
+            }
+            else {
+                document.querySelector(`#tb${i + 1}`).innerText = '18'
+            }
+        }
+
+
+        // window.onload = function () {
+        //     window.print() // Esta linha de código acionará a impressão da página.
+        // }
+
+
+        function capitalizar() {
+            let paragrafos = [...document.querySelectorAll('p')]
+            paragrafos.map(function (cada) {
+                let texto = cada.textContent.split(' ')
+                cada.textContent = texto.map(function (palavra) {
+                    return palavra.charAt(0).toUpperCase() + palavra.slice(1)
+                }).join(' ')
+            })
+        }
+        capitalizar()
+
+
+        // Mudança da logo
+        mudarLogo()
+        function mudarLogo() {
+            let plano = localStorage.getItem("plano")
+            if (plano == "amil") {
+                document.getElementById("logo").src = "../imagens/logoamil.png"
+                document.getElementById("logo").style.width = "175px"
+                document.getElementById("logo").style.height = "155px"
+                document.getElementById("logo").style.top = "-2533px"
+            } else if (plano == "petrobras") {
+                document.getElementById("logo").src = "../imagens/logopetro.png"
+                document.getElementById("logo").style.width = "200px"
+            } else if (plano == "golden") {
+                document.getElementById("logo").src = "../imagens/logogolden.png"
+                document.getElementById("logo").style.width = "200px"
+            } else if (plano == "caberj") {
+                document.getElementById("logo").style.opacity = "0"
+                document.getElementById('tampo').style.background = 'none'
+                document.getElementById('borda').style.border = 'black'
+            } else if (plano == "fio") {
+                document.getElementById("logo").src = "../imagens/logofiosaude.png"
+                document.getElementById("logo").style.width = "200px"
+                document.getElementById("logo").style.height = "90px"
+                document.getElementById("logo").style.left = "26px"
+                document.getElementById("logo").style.top = "-2504px"
+            } else if (plano == "ipalerj") {
+                document.getElementById("logo").src = "../imagens/logoipalerj.png"
+                document.getElementById("logo").style.width = "260px"
+                document.getElementById("logo").style.height = "95px"
+            } else if (plano == "assim") {
+                document.getElementById("logo").src = "../imagens/logoassim.png"
+                document.getElementById("logo").style.width = "200px"
+                document.getElementById("logo").style.height = "65px"
+                document.getElementById("logo").style.top = "-2493px"
+            }
+        }
+
+    </script>
+</body>
+
+</html>

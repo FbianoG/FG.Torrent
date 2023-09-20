@@ -1,0 +1,176 @@
+@import url('header.css');
+
+
+.container {
+    width: 100%;
+    /* border: 1px solid salmon; */
+    padding: 20px 0px 20px 60px;
+    transition: 500ms;
+}
+
+
+/* Bar of Search */
+.find {
+    margin: 0 auto;
+    width: 300px;
+    height: 35px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #fdfdfd;
+    padding: 0 10px 0 10px;
+    margin-bottom: 20px;
+    color: #999;
+}
+
+.find input {
+    outline: none;
+    border: none;
+    padding-left: 5px;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+}
+
+/* List of Cards */
+#lista {
+    margin: 0 auto;
+    width: 95%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 20px;
+    row-gap: 20px;
+}
+
+/* Card Plans */
+.card {
+    width: 230px;
+    height: 95px;
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.card h2 {
+    width: 100%;
+    color: #5382b9;
+    font-weight: 600;
+}
+
+.card .data {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 60px;
+    height: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.data a {
+    text-decoration: none;
+    color: #83a7cf;
+    cursor: pointer;
+    width: 25px;
+    text-align: center;
+}
+
+.data a:hover {
+    opacity: 0.7;
+    transition: 300ms;
+}
+
+.card label {
+    color: #5ab613;
+    font-weight: 550;
+    font-size: 9.5px;
+    line-height: 25px;
+    margin-right: 3px;
+}
+
+.card p {
+    width: 80%;
+    font-size: 12px;
+    line-height: 25px;
+    color: #979797;
+    cursor: pointer;
+}
+
+.card p:hover {
+    text-decoration: underline;
+}
+
+/* Plans Informations */
+.deep {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background: #ffffffd3;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: -1;
+    transition: 400ms;
+}
+
+.deep .dados {
+    background: #fafafa;
+    color: #636363;
+    width: 650px;
+    height: 500px;
+    border: 1px solid #e0e0e0;
+    border-radius: 7px;
+    padding: 25px;
+    position: relative;
+    overflow-y: auto;
+}
+
+.deep .dados span {
+    position: absolute;
+    top: 35px;
+    right: 50px;
+    scale: 1.7;
+    color: #636363;
+    cursor: pointer;
+}
+
+/* PopUp Text Copy */
+.popup {
+    border: 1px solid #eeeeee;
+    width: 220px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 7px;
+    background: #365477b9;
+    position: fixed;
+    right: 40px;
+    bottom: -120px;
+    color: #fdfdfd;
+    opacity: 0;
+}
+
+.popup #copiado {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}

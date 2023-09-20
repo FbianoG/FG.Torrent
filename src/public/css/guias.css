@@ -1,0 +1,130 @@
+@import url('header.css');
+
+
+.container {
+    width: 100%;
+    padding: 20px 0px 20px 60px;
+    /* display: flex; */
+    justify-content: center;
+}
+
+.internacao {
+    width: 615px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 0 auto 30px;
+}
+
+.container h2 {
+    color: #5382b9;
+    text-align: center;
+    width: 100%;
+}
+
+.card {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 0 0 10px 0;
+}
+
+.card h4 {
+    border-bottom: 2px solid #eee;
+    padding: 10px;
+    color: #606060;
+}
+
+.card label {
+    display: inline-block;
+    width: 180px;
+    padding: 10px;
+    color: #7a8ea7;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+input {
+    border-radius: 5px;
+    border: 1px solid #688eb969;
+    outline: none;
+    padding: 3px;
+    width: 400px;
+    text-transform: uppercase;
+}
+
+input:focus {
+    border-color: #19acff;
+}
+
+select:focus {
+    border-color: #19acff;
+}
+
+select {
+    border-radius: 5px;
+    border: 1px solid #688eb969;
+    outline: none;
+    padding: 3px;
+    width: 400px;
+}
+
+.card .data {
+    width: 120px;
+}
+
+.card .labelMin {
+    width: 125px;
+    margin-left: 25px;
+    padding-right: 0px;
+}
+
+.card i {
+    text-align: center;
+    margin: 0 200px;
+    font-size: 20px;
+    color: #365477;
+}
+
+.card i:hover {
+    opacity: 0.5;
+    cursor: pointer;
+    scale: 1.5;
+    transition: 400ms;
+}
+
+.procedimentos {
+    margin-bottom: 20px;
+}
+
+.status {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+.cardStatus {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    flex-direction: column;
+    border-radius: 15px;
+    background: #7a8ea723;
+    color: #19acff;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.cardStatus i {
+    font-size: 30px;
+}
+
+.cardStatus:hover {
+    background: #19acff;
+    color: #fdfdfd;
+    transition: 500ms;
+}

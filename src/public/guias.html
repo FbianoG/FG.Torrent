@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FG.Torrent</title>
+    <link rel="stylesheet" href="./css/guias.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="./scripts/guias.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <ul>
+            <h3>FG</h3>
+            <li><i class="fa-solid fa-house"></i></li>
+            <li><i class="fa-solid fa-notes-medical"></i></li>
+            <li><i class="fa-solid fa-suitcase-medical"></i></li>
+            <li class="active"><i class="fa-solid fa-file-waveform"></i></li>
+            <li><i class="fa-solid fa-address-card"></i></li>
+            <li><i class="fa-solid fa-phone"></i></li>
+
+        </ul>
+        <nav>
+            <a href=""><i class="fa-solid fa-caret-right"></i>Home</a>
+            <a href="index.html"><i class="fa-solid fa-caret-right"></i>Planos, Acessos</a></li>
+            <a href="termos.html"><i class="fa-solid fa-caret-right"></i>Documentos</a>
+            <a href=""><i class="fa-solid fa-caret-right"></i>Guias, Termos</a>
+            <a href="cadastro.html"><i class="fa-solid fa-caret-right"></i>Cadastro</a>
+            <a href="ramais.html"><i class="fa-solid fa-caret-right"></i>Ramais</a>
+            <p><i class="fa-solid fa-code fa-fade"></i>Fabiano Gonçalves</p>
+        </nav>
+
+    </header>
+
+    <div class="container">
+    <h2>Guia Solicitação de Internação</h2>
+        <div class="internacao">
+            <div class="dadosPaciente card">
+                <h4>Dados do Paciente</h4>
+                <label for="">Nome do Paciente:</label>
+                <input type="text" id="nome">
+                <label for="">Nº da Carteira</label>
+                <input type="text" id="carteira">
+                <label for="">Plano:</label>
+                <select name="" id="plano">
+                    <option value=""></option>
+                    <option value="amil">Amil</option>
+                    <option value="assim">Assim</option>
+                    <option value="caberj">Caberj</option>
+                    <option value="fio">Fio Saúde</option>
+                    <option value="golden">Gonden Cross</option>
+                    <option value="intermedica">Intermédica</option>
+                    <option value="ipalerj">Ipalerj</option>
+                    <option value="petrobras">Petrobras</option>
+                </select>
+            </div>
+            <div class="dadosAutorizacao card">
+                <h4>Dados da Autorização</h4>
+                <label for="">Nº da Guia:</label>
+                <input type="text" id="guia">
+                <label for="">Nº da Senha:</label>
+                <input type="text" id="senha">
+                <label for="">Médico Solicitante:</label>
+                <input type="text" id="medico">
+                <label for="">CRM do Médico</label>
+                <input type="text" id="crm">
+                <label for="">Data Solicitação:</label>
+                <input type="date" class="data" id="dataSol">
+                <label for="" class="labelMin">Data Autorização:</label>
+                <input type="date" class="data" id="dataAut">
+            </div>
+            <div class="dadosinternacao card">
+                <h4>Dados da Internação</h4>
+                <label for="">Tipo de Internação:</label>
+                <select name="" id="tipo">
+                    <option value="1">Clínica</option>
+                    <option value="2">Cirúrgica</option>
+                    <option value="3">Ginecológica</option>
+                    <option value="4">Pediátrica</option>
+                </select>
+                <label for="">Caráter da Internação:</label>
+                <select name="" id="carater">
+                    <option value="u">Urgência</option>
+                    <option value="e">Eletivo</option>
+                </select>
+                <label for="">Acomodação:</label>
+                <select name="" id="leito">
+                    <option value="apt">Quarto</option>
+                    <option value="enf">Enfermaria</option>
+                    <option value="uti">UTI</option>
+                </select>
+                <label for="">Diárias:</label>
+                <select name="" id="diaria">
+                    <option value="0">0</option>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="dadosProcedimentos card">
+                <h4>Procedimentos</h4>
+                <div class="listProcedimentos">
+                    <div class="procedimento1 procedimentos">
+                        <label for="">Cód. Procedimento:</label>
+                        <input type="text" id="proced1">
+                        <label for="">Nome do Procedimento:</label>
+                        <input type="text" id="des1">
+                        <label for="">Quantidade</label>
+                        <select name="" id="qtd1">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                <label for="">Adicionar Procedimento:</label>
+                <i class="fa-solid fa-circle-plus" id="btnAdd"></i>
+            </div>
+        </div>
+
+        <div class="status">
+            <div class="cardStatus limpar">
+                <i class="fa-solid fa-broom"></i>
+                <p>Limpar</p>
+            </div>
+            <div class="cardStatus gerar">
+                <i class="fa-regular fa-circle-check"></i>
+                <p>Gerar</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
