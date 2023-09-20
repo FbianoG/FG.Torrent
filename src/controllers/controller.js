@@ -30,8 +30,6 @@ async function findPlan(req, res) {
 async function updatePlan(req, res) {
     let { id, nome, login, password, web, cod, tel, email, att, guia, senha, obs } = req.body
     nome = nome.toLowerCase()
-
-    let atualizado = await Planos.findOneAndUpdate({ _id: id }, {
         nome: nome,
         login: login,
         password: password,
@@ -46,9 +44,6 @@ async function updatePlan(req, res) {
             obs: obs,
         }
     })
-    res.redirect('/home.html')
-
-
 }
 
 
