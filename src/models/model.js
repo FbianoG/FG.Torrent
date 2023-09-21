@@ -22,7 +22,7 @@ const Planos = mongoose.model('planos', {
 const Ramais = mongoose.model('ramais', {
     setor: String,
     posto: String,
-    ramal: Number
+    ramal: Number,
 })
 
 module.exports = {

@@ -11,7 +11,6 @@ async function createPlan(req, res) {
     }
     catch (err) {
         res.status(500).send(err);
-
     }
 }
 
@@ -42,7 +41,7 @@ async function updatePlan(req, res) {
             web: web,
             data: {
                 cod: cod,
-                tel: tesl,
+                tel: tel,
                 email: email,
                 att: att,
                 guia: guia,
@@ -56,6 +55,7 @@ async function updatePlan(req, res) {
         res.json(autorizado)
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({ message: 'Erro ao atualizar o plano' });
     }
 }

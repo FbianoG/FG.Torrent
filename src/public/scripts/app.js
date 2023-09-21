@@ -1,13 +1,12 @@
 let planos = []
 
-
 async function get() {
     let api = await fetch('/index')
     let dados = await api.json()
     console.log(dados);
     dados.forEach(plano => {
         planos.push(plano)
-        
+
     })
     gera()
 }
