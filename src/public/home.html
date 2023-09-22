@@ -44,9 +44,7 @@
         </form>
 
         <form action="/createPlan" method="post">
-            <label for="id">ID:</label>
-            <input type="text" name="id">
-            <br>
+            <input type="text" name="id" style="display: none;">
             <label for="nome">Plano:</label>
             <input type="text" name="nome" required>
             <br>
@@ -81,6 +79,16 @@
             <textarea type="text" name="obs"></textarea>
             <br>
             <input type="submit" value="Adicionar Plano" id="btn">
+        </form>
+
+        <form action="/createRamal" method="post">
+            <label for="setor">Setor:</label>
+            <input type="text" name="setor" required>
+            <label for="posto">Posto:</label>
+            <input type="text" name="posto" required>
+            <label for="ramal">Ramal:</label>
+            <input type="number" name="ramal" required>
+            <input type="submit" value="Adicionar Ramal">
         </form>
         
     </div>

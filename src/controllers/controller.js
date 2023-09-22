@@ -14,6 +14,36 @@ async function createPlan(req, res) {
     }
 }
 
+async function createRamal(req, res) {
+    try {
+        let { setor, posto, ramal } = req.body
+        if (setor && posto && ramal) {
+            setor = setor.toLowerCase()
+            posto = posto.toLowerCase()
+            const createRamal = await Ramais.create({
+                setor: setor,
+                posto: posto,
+                ramal: ramal
+            })
+            console.log('Ramal incluido com sucesso');
+            res.status(201).redirect('/home.html')
+        } else {
+            console.log('Os campos não foram preenchidos');
+        }
+    } catch (error) {
+        res.status(500).send({ message: error })
+    }
+}
+
+async function getRamais(req, res) {
+    try {
+        let ramais = await Ramais.find({})
+        res.json(ramais)
+    } 
+    catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar ramais' });
+    }
+}
 
 async function getPlans(req, res) {
     try {
@@ -52,7 +82,7 @@ async function updatePlan(req, res) {
             {
                 new: true
             })
-        res.json(autorizado)
+        res.json({message: "O plano foi ataualizado com sucesso:", autorizado})
     }
     catch (error) {
         console.log(error);
@@ -61,9 +91,12 @@ async function updatePlan(req, res) {
 }
 
 
+
 module.exports = {
     createPlan,
+    createRamal,
     getPlans,
     findPlan,
     updatePlan,
+    getRamais,
 }
