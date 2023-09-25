@@ -2,6 +2,11 @@ let btnFind = document.querySelector('#btn-find')
 let input = document.querySelector('#nome-find')
 let btn = document.querySelector('#btn')
 
+// Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento com transition já definida)
+window.addEventListener('DOMContentLoaded', (e) => {
+    document.querySelectorAll('nav')[0].style.transition = '400ms'
+})
+
 btnFind.addEventListener('click', async () => {
     try {
         let api = await fetch(`/find?nome=${input.value.toLowerCase()}`)

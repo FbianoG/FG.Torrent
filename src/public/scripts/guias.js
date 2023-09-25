@@ -57,12 +57,12 @@ btnLimpar.addEventListener('click', limpar)
 
 function gerar() {
     let dadosPaciente = {}
-    dadosPaciente.nome = document.querySelector('#nome').value
+    dadosPaciente.nome = document.querySelector('#nome').value.toLowerCase()
     dadosPaciente.carteira = document.querySelector('#carteira').value
     dadosPaciente.plano = document.querySelector('#plano').value
     dadosPaciente.guia = document.querySelector('#guia').value
     dadosPaciente.senha = document.querySelector('#senha').value
-    dadosPaciente.medico = document.querySelector('#medico').value
+    dadosPaciente.medico = document.querySelector('#medico').value.toLowerCase()
     dadosPaciente.crm = document.querySelector('#crm').value
     dadosPaciente.dataSol = document.querySelector('#dataSol').value
     dadosPaciente.dataAut = document.querySelector('#dataAut').value

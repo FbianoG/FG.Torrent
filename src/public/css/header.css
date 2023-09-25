@@ -9,7 +9,6 @@ body {
     background: #f2f3f6;
 }
 
-
 header {
     width: 60px;
     height: 100%;
@@ -86,7 +85,6 @@ header a {
     text-decoration: none;
     padding-left: 20px;
     line-height: 35px;
-
 }
 
 header a:hover {
@@ -94,8 +92,6 @@ header a:hover {
     border-left: 3px solid #19acff;
     transition: 300ms;
 }
-
-
 
 header a i {
     padding-right: 20px;
@@ -117,5 +113,4 @@ header nav p i {
 .container {
     width: 100%;
     padding: 20px 0px 20px 60px;
-    transition: 500ms;
 }

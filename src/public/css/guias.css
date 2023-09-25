@@ -1,13 +1,5 @@
 @import url('header.css');
 
-
-.container {
-    width: 100%;
-    padding: 20px 0px 20px 60px;
-    /* display: flex; */
-    justify-content: center;
-}
-
 .internacao {
     width: 615px;
     display: flex;
@@ -17,9 +9,14 @@
 }
 
 .container h2 {
-    color: #5382b9;
+    margin: 0 auto;
     text-align: center;
-    width: 100%;
+    margin-bottom: 20px;
+    width: 60%;
+    min-width: 300px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    color: #5382b9;
 }
 
 .card {

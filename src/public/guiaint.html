@@ -46,6 +46,7 @@
             padding-left: 5px;
             width: 100px;
             z-index: 1;
+            text-transform: capitalize;
         }
 
         p#guia {
@@ -474,7 +475,7 @@
         // document.getElementById("anexo").innerText = localStorage.getItem("anexo")
         // document.getElementById("cid").innerText = localStorage.getItem("cid")
         document.getElementById("diariaAut").innerText = dadosPaciente.diaria.padStart(2, '0')
-        document.getElementById("leito").innerText = dadosPaciente.leito
+        document.getElementById("leito").innerText = dadosPaciente.leito.toUpperCase()
         // document.getElementById("cnpj3").innerText = localStorage.getItem("cnpj3")
         // document.getElementById("contratado3").innerText = localStorage.getItem("contratado3")
 

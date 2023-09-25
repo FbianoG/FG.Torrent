@@ -1,13 +1,15 @@
 @import url('header.css');
 
-
-.container {
-    width: 100%;
-    /* border: 1px solid salmon; */
-    padding: 20px 0px 20px 60px;
-    transition: 500ms;
+.container .title {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 20px;
+    width: 60%;
+    min-width: 300px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    color: #5382b9;
 }
-
 
 /* Bar of Search */
 .find {
