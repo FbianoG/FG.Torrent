@@ -1,27 +1,38 @@
-let ramais = []
-
-async function getRamais() {
-    const getRamais = await fetch('/find-ramais')
-    ramais = await getRamais.json()
-    console.log(ramais);
-    gerar(ramais)
-}
-getRamais()
-
-// Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento com transition já definida)
-document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => {
-    e.target.style.transition = '400ms'
-})
-
 // VARIÁVEIS //
 let search = document.querySelector('#search-input')
 let listaRamais = document.querySelectorAll('.ramais-card')[0]
+let title = document.querySelectorAll('h2')[0]
+let ramais = []
 
+
+// CHAMADAS //
+getRamais()
+
+
+
+// EVENTOS //
+document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => { // Cria style.transiton no Menu
+    e.target.style.transition = '400ms'
+})
+
+search.addEventListener('keyup', () => { // Filtrar ramais pelo texto digitado no input
+    let filter = ramais.filter(ramal => {
+        return ramal.setor.includes(search.value.toLowerCase())
+    })
+    gerar(filter)
+})
 
 
 
 // FUNÇÕES //
-function gerar(object) {
+
+async function getRamais() { // Pegar dados vindo do DataBase 
+    const getRamais = await fetch('/find-ramais')
+    ramais = await getRamais.json()
+    gerar(ramais)
+}
+
+function gerar(object) { // Gera a lista de ramais com base nos dados obtidos do DataBase
     listaRamais.innerHTML = ''
     object.forEach(ramal => {
         let newCard = document.createElement('li')
@@ -33,28 +44,10 @@ function gerar(object) {
         `
         listaRamais.appendChild(newCard)
     })
-
-    let card = listaRamais.querySelectorAll('li')
-    card.forEach(texto => {
-        let arrayTexto = texto.querySelectorAll('p')[0].textContent.split(' ')
-        let palavraCapitalizada = arrayTexto.map(palavra => {
-            return palavra.charAt(0).toUpperCase() + palavra.slice(1)
-        })
-        textoCapitalizado = palavraCapitalizada.join(' ')
-        texto.querySelectorAll('p')[0].textContent = textoCapitalizado
-    })
     ordenar()
 }
 
-search.addEventListener('keyup', () => {
-    let filter = ramais.filter(ramal => {
-        return ramal.setor.includes(search.value.toLowerCase())
-    })
-    gerar(filter)
-})
-
-// CHAMADAS //
-function ordenar() {
+function ordenar() { // Ordena Array.Objects por ordem alfabética
     let card = listaRamais.querySelectorAll('li')
     let ordenados = Array.from(card).sort((a, b) => {
         return a.children[0].innerText.localeCompare(b.children[0].innerText)
@@ -69,10 +62,5 @@ function ordenar() {
             <p class="card-ramal">${element.children[2].innerText}</p>
         `
         listaRamais.appendChild(newCard)
-        
     })
-    console.log(ramais);
 }
-
-
-document.querySelectorAll('h2')[0].addEventListener('click', ordenar)
