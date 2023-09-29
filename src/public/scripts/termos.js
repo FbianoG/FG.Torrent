@@ -74,6 +74,41 @@ const files = [
         type: 'atendimento',
         doc: 'globo.com'
     },
+    {
+        name: 'confirmação de atendimento petrobras',
+        type: 'atendimento',
+        doc: 'globo.com'
+    },
+    {
+        name: 'confirmação de atendimento petrobras',
+        type: 'atendimento',
+        doc: 'globo.com'
+    },
+    {
+        name: 'confirmação de atendimento petrobras',
+        type: 'atendimento',
+        doc: 'globo.com'
+    },
+    {
+        name: 'confirmação de atendimento petrobras',
+        type: 'atendimento',
+        doc: 'globo.com'
+    },
+    {
+        name: 'confirmação de atendimento petrobras',
+        type: 'atendimento',
+        doc: 'globo.com'
+    },
+    {
+        name: 'confirmação de atendimento petrobras',
+        type: 'atendimento',
+        doc: 'globo.com'
+    },
+    {
+        name: 'confirmação de atendimento petrobras',
+        type: 'atendimento',
+        doc: 'globo.com'
+    },
 ]
 
 // Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento com transition já definida)
@@ -81,7 +116,7 @@ document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => {
     e.target.style.transition = '400ms'
 })
 
-const list = document.querySelectorAll('.termos')[0]
+const list = document.querySelectorAll('.list-card')[0]
 let searchInput = document.querySelector('#search-input')
 let selectInput = document.querySelector('#filtro')
 
@@ -91,9 +126,9 @@ function load(e) {
         let newDoc = document.createElement('div')
         newDoc.classList = `card ${e[i].type}`
         newDoc.innerHTML = `
-        <p>${e[i].name}</p>
-        <h5>${e[i].type}</h5> 
-        <a href="${e[i].doc}" target='_blank'><i class="fa-solid fa-file-pdf"></i></a>`
+        <p class="card-termo">${e[i].name}</p>
+        <p class="card-categoria" id="card-${e[i].type}">${e[i].type}</p> 
+        <a href="${e[i].doc}" target='_blank' class="card-pdf"><i class="fa-solid fa-file-pdf"></i></a>`
         list.appendChild(newDoc)
     }
     capitalize()
