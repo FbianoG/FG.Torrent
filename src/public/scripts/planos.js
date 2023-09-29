@@ -18,7 +18,7 @@ function gera() {
         e.target.style.transition = '400ms'
     })
 
-    let lista = document.querySelectorAll('.lista')[0]
+    let lista = document.querySelector('#lista')
     function gerar(planos) {
         lista.innerHTML = ''
         for (let i = 0; i < planos.length; i++) {

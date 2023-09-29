@@ -46,6 +46,9 @@ card.addEventListener('keyup', (e) => {
     }
     if (input in codigos) { // Verifica se o "input" existe em "codigos"
         desProcedimento.value = codigos[input]
+        if (input == '10104020') {
+            e.target.parentElement.children[5].value = 2
+        }
     }
 })
 
