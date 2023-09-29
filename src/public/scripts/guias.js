@@ -44,7 +44,7 @@ card.addEventListener('keyup', (e) => {
         '31309054': 'Cesariana',
         '31303013': 'Aspiração manual intra-uterina (AMIU)',
     }
-    if (input in codigos) {
+    if (input in codigos) { // Verifica se o "input" existe em "codigos"
         desProcedimento.value = codigos[input]
     }
 })
