@@ -11,7 +11,6 @@ btnFind.addEventListener('click', async () => {
     try {
         let api = await fetch(`/find?nome=${input.value.toLowerCase()}`)
         let data = await api.json()
-        console.log(data);
         if (data) {
             btn.parentElement.action = '/att'
             btn.value = 'Editar Plano'

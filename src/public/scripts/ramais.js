@@ -5,6 +5,7 @@ let title = document.querySelectorAll('h2')[0]
 let ramais = []
 
 
+
 // CHAMADAS //
 getRamais()
 
