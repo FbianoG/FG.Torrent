@@ -7,10 +7,10 @@ async function createPlan(req, res) {
     try {
         await Planos.create({ nome, login, password, web, data: { cod, tel, email, att, guia, senha, obs } })
         console.log('Plano incluido com sucesso');
-        res.status(201).redirect('/home.html')
+        res.status(201).redirect('/config.html')
     }
-    catch (err) {
-        res.status(500).send(err);
+    catch (error) {
+        res.status(500).send(error);
     }
 }
 

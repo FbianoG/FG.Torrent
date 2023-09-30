@@ -4,9 +4,8 @@ const { config } = require('dotenv')
 async function connectDataBase() {
     try {
         config()
-        let user = process.env.MONGODB_USERNAME
-        let password = process.env.MONGODB_PASSWORD
-        await mongoose.connect(`mongodb+srv://${user}:${password}@cluster0.p2xagpb.mongodb.net/?retryWrites=true&w=majority`)
+        let url = process.env.MONGODB_URL
+        await mongoose.connect(url)
         console.log('DataBase conectado');
     } catch (error) {
         console.error({ message: error })
