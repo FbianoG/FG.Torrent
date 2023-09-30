@@ -115,5 +115,3 @@ function gera() {
         })
     }
 }
-
-document.querySelector('.input-search')[0].addEventListener('click', (e))
