@@ -3,6 +3,7 @@ const routes = require('./src/routes/router')
 const db = require('./src/database/db')
 const { config } = require('dotenv')
 const app = express()
+config()
 const port = process.env.PORT
 
 app.use(express.urlencoded({ extended: true }));
