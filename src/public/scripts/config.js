@@ -9,12 +9,10 @@ cardDocs.addEventListener('click', getData)
 cardRamais.addEventListener('click', getData)
 
 
+// getData()
 
 
-
-
-
-async function getData(e) {
+async function getData() {
     let inf = this.querySelectorAll('h2')[0].textContent
     try {
         const api = await fetch(`/getData?inf=${inf}`)
@@ -33,8 +31,22 @@ function getList(e) {
         newCardPlan.classList = 'card'
         newCardPlan.innerHTML = newCardPlanHtml(element)
         list.appendChild(newCardPlan)
+
+        verificStatus(newCardPlan)
     });
     createEvent()
+}
+
+
+
+function verificStatus(e) {
+    let spanStatus = e.querySelectorAll(".spanStatus")[0]
+
+    if (spanStatus.parentElement.textContent == "true") {
+        spanStatus.style.background = "#75e06a"
+    } else {
+        spanStatus.style.background = "#e64f4f"
+    }
 }
 
 function createEvent() {
@@ -46,39 +58,31 @@ function createEvent() {
     btnEdit.forEach(element => {
         element.addEventListener('click', editable)
     });
+
 }
 
 function extendCard(e) {
     let card = this.parentElement
-    if (this.style.transform == "rotate(180deg)") {
-        this.style.transform = ""
+    let btnIcon = this.querySelectorAll('.fa-solid')[0]
+    if (btnIcon.style.transform == "rotate(180deg)") {
+        btnIcon.style.transform = ""
         card.style.height = ""
     } else {
-        this.style.transform = "rotate(180deg)"
+        btnIcon.style.transform = "rotate(180deg)"
         // console.log(card);
         card.style.height = "auto"
     }
 }
 
-function editable() {
-    let card = this.parentElement.parentElement
-    let input = card.querySelectorAll('input')
-    let textArea = card.querySelectorAll("textArea")[0]
-    input.forEach(element => {
-        element.removeAttribute("disabled")
-    });
-    textArea.removeAttribute("disabled")
-}
-
-function newCardPlanHtml(e) {
+function newCardPlanHtml(e) { // Cria o HTML do "plano" com os dados do DataBase
     const html = `
         <p>${e.nome}</p>
         <p>${e.create.slice(0, 10).split('-').reverse().join('/')}</p>
         <p>${e.create.slice(0, 10).split('-').reverse().join('/')}</p>
         <p>${e.login}</p>
         <p>${e.password}@2020</p>
-        <p>${e.active}</p>
-        <p class="btnExtend">V</p>
+        <p><span class="spanStatus"></span>${e.active}</p>
+        <button class="btnExtend"><i class="fa-solid fa-caret-down"></i></button>
         <form action="/updatePlan" id="formEdit" method="post">
             <input type="text" name="id" disabled value="${e.id}" style="display: none">
             <label for="">Nome:</label>
@@ -104,11 +108,23 @@ function newCardPlanHtml(e) {
             <label for="">Observação:</label>
             <textarea name="obs" disabled >${e.data.obs}</textarea>
             <div class="dataBtn">
+                <input type="range" name="active" min="0" max="1" value="${e.active == true ? 1 : 0}" disabled>
+
                     <input type="button" value="Editar" class="btnEdit">
                     <input type="submit" value="Update">
-                    <input type="button" value="Cancelar">
+                    <input type="submit" value="Cancelar" class="btnStatus">
             </div>
         </form>
     `
     return html
+}
+
+function editable() { // Transforma os "inputs" em editáveis
+    let card = this.parentElement.parentElement
+    let input = card.querySelectorAll('input')
+    let textArea = card.querySelectorAll("textArea")[0]
+    input.forEach(element => {
+        element.removeAttribute("disabled")
+    });
+    textArea.removeAttribute("disabled")
 }

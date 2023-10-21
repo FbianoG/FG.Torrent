@@ -3,6 +3,7 @@
 body {
     width: fit-content;
 }
+
 .selections {
     width: 100%;
     display: flex;
@@ -20,8 +21,9 @@ body {
 
 .containerList {
     background: #fdfdfd;
-
 }
+
+
 
 .legends {
     display: grid;
@@ -30,10 +32,36 @@ body {
     align-items: center;
 }
 
-span {
-    color: #3975d5;
+.legends label {
+    color: #5382b9;
     font-weight: 500;
     padding: 0 20px;
+}
+
+.spanStatus {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    /* border: 1px solid red; */
+    /* background: #75e06a; */
+    /* e64f4f */
+    animation: pulse 1500ms infinite;
+    margin-right: 10px;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .card {
@@ -52,9 +80,15 @@ span {
     background: #eee;
 }
 
+.card p {
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .btnExtend {
     width: 40px;
-    height: 35px;
+    height: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,6 +97,11 @@ span {
     font-weight: bold;
     border-radius: 10px;
     cursor: pointer;
+    border: none;
+}
+
+.btnExtend i {
+    transition: 350ms;
 }
 
 #formEdit {
@@ -74,6 +113,7 @@ span {
     flex-wrap: wrap;
     column-gap: 20px;
     border-top: 1px solid #ddd;
+
 }
 
 
@@ -81,6 +121,12 @@ span {
     margin-bottom: 10px;
     padding: 0 3px;
     outline: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#formEdit input:focus {
+    border: 1px solid #19acff;
 }
 
 #formEdit textarea {

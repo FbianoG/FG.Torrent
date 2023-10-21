@@ -70,7 +70,7 @@ async function getRamais(req, res) {
     }
 }
 
-async function getPlans(req, res) {
+async function getPlans(req, res) {  // Busca todos os "planos" mo DataBase
     try {
         let plans = await Planos.find({})
         res.json(plans)
@@ -91,28 +91,21 @@ async function getData(req, res) {
         const getData = await Ramais.find({})
         res.json(getData)
     }
-
-
-
-
-
-
-
 }
 
 
-
-async function findPlan(req, res) {
-    let plan = await Planos.findOne({ nome: req.query.nome })
-    res.json(plan)
-}
-
-async function updatePlan(req, res) {
+async function updatePlan(req, res) {  // Atualiza planos no DataBase
     try {
+        let activeStatus = req.body.active
+        if (activeStatus == "0") {
+            activeStatus = false
+        } else {
+            activeStatus = true
+        }
         let update = new Date()
         let { id, nome, login, password, web, cod, tel, email, att, guia, senha, obs } = req.body
         nome = nome.toLowerCase()
-        let autorizado = await Planos.findOneAndUpdate({ id: id }, {
+        let PlanUpdate = await Planos.findOneAndUpdate({ id: id }, {
             nome: nome,
             login: login,
             password: password,
@@ -126,12 +119,14 @@ async function updatePlan(req, res) {
                 senha: senha,
                 obs: obs,
             },
-            update
+            update,
+            active: activeStatus,
         },
             {
                 new: true
             })
-        res.json({ message: "O plano foi ataualizado com sucesso:", autorizado })
+        console.log({ message: "O plano foi ataualizado com sucesso:", PlanUpdate })
+        res.status(204).redirect('/config.html')
     }
     catch (error) {
         console.log(error);
@@ -145,9 +140,7 @@ module.exports = {
     createPlan,
     createRamal,
     getPlans,
-    findPlan,
     updatePlan,
     getRamais,
-
     getData,
 }
