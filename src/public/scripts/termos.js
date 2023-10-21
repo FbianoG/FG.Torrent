@@ -1,168 +1,60 @@
+// Variáveis
+
+let list = document.querySelectorAll('.list-card')[0]
+let searchInput = document.querySelector('#search-input')
 const files = [
     {
         name: 'violência sexual contra menor de idade',
         type: 'policial',
-        doc: 'termopetro.pdf'
-    },
-    {
-        name: 'violência sexual contra mulher',
-        type: 'policial',
-        doc: 'globo.com'
-    },
-    {
-        name: 'termo de atendimento sul américa',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'timbrado chn',
-        type: 'outros',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'violência sexual contra menor de idade',
-        type: 'policial',
-        doc: 'globo.com'
-    },
-    {
-        name: 'violência sexual contra mulher',
-        type: 'policial',
-        doc: 'globo.com'
-    },
-    {
-        name: 'termo de atendimento sul américa',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'timbrado chn',
-        type: 'outros',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'violência sexual contra menor de idade',
-        type: 'policial',
-        doc: 'globo.com'
-    },
-    {
-        name: 'violência sexual contra mulher',
-        type: 'policial',
-        doc: 'globo.com'
-    },
-    {
-        name: 'termo de atendimento sul américa',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'timbrado chn',
-        type: 'outros',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
-    },
-    {
-        name: 'confirmação de atendimento petrobras',
-        type: 'atendimento',
-        doc: 'globo.com'
+        doc: './pdf/sexmenor.pdf'
     },
 ]
 
-// Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento com transition já definida)
-document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => {
+
+
+// Eventos
+
+
+document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => { // Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento)
     e.target.style.transition = '400ms'
 })
+searchInput.addEventListener('keyup', filterForName) // Filtra "lista de documentos" pelo valor do "input"
 
-const list = document.querySelectorAll('.list-card')[0]
-let searchInput = document.querySelector('#search-input')
-let selectInput = document.querySelector('#filtro')
 
-function load(e) {
+
+
+// Funções
+
+function createList(e) { // Cria e gera "card de documentos"
+    console.log(e);
     list.innerHTML = ''
-    for (let i = 0; i < e.length; i++) {
-        let newDoc = document.createElement('div')
-        newDoc.classList = `card ${e[i].type}`
-        newDoc.innerHTML = `
-        <p class="card-termo">${e[i].name}</p>
-        <p class="card-categoria" id="card-${e[i].type}">${e[i].type}</p> 
-        <a href="${e[i].doc}" target='_blank' class="card-pdf"><i class="fa-solid fa-file-pdf"></i></a>`
+    e.forEach(element => {
+        let newDoc = document.createElement('div') // Cria HTML dos "cards de documentos"
+        newDoc.classList = `card ${element.type}`
+        newDoc.innerHTML = createCardHtml(element)
         list.appendChild(newDoc)
-    }
-    capitalize()
+    })
 }
-load(files)
 
-// Search Docs Whith Input And Select
-searchInput.addEventListener('keyup', function () {
+function filterForName() { // Filtra "lista de documentos" pelo valor do "input"
     let findDoc = files.filter(function (doc) {
         return doc.name.toLowerCase().includes(searchInput.value.toLowerCase())
     })
-    selectInput.value = ''
     load(findDoc)
-})
-
-selectInput.addEventListener('change', function () {
-    let findDoc = files.filter(function (doc) {
-        return doc.type.toLowerCase().includes(selectInput.value.toLowerCase())
-    })
-    load(findDoc)
-})
-
-function capitalize() {
-    let paragraph = document.querySelectorAll('p')
-    let kind = document.querySelectorAll('h5')
-    for (let i = 0; i < paragraph.length; i++) {
-        let words = paragraph[i].textContent.split(' ')
-        for (let p = 0; p < words.length; p++) {
-            words[p] = words[p].charAt(0).toUpperCase() + words[p].slice(1)
-        }
-        let paragraphCapitalized = words.join(' ')
-        paragraph[i].textContent = paragraphCapitalized
-    }
-    for (let i = 0; i < kind.length; i++) {
-        kind[i].textContent = kind[i].textContent.charAt(0).toUpperCase() + kind[i].textContent.slice(1)
-    }
 }
+
+function createCardHtml(e) {  // Cria HTML dos "cards de documentos"
+    const html = `
+        <p class="card-termo">${e.name}</p>
+        <p class="card-categoria" id="card-${e.type}">${e.type}</p> 
+        <a href="${e.doc}" target='_blank' class="card-pdf"><i class="fa-solid fa-file-pdf"></i></a>
+    `
+    return html
+}
+
+
+
+
+// Chamadas
+
+createList(files) // Cria e gera "card de documentos"

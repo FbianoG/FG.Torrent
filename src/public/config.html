@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FG.Torrent</title>
+    <link rel="shortcut icon" href="imagens/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/config.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="./scripts/config.js" defer></script>
@@ -21,78 +22,117 @@
             <li><i class="fa-solid fa-address-card"></i></li>
             <li><i class="fa-solid fa-phone"></i></li>
             <li class="active"><i class="fa-solid fa-gear"></i></li>
-
         </ul>
         <nav>
-            <a href="index.html"><i class="fa-solid fa-caret-right"></i>Planos, Acessos</a></li>
-            <a href="termos.html"><i class="fa-solid fa-caret-right"></i>Documentos</a>
-            <a href="guias.html"><i class="fa-solid fa-caret-right"></i>Guias, Termos</a>
+            <h3>FG.Torrent</h3>
+            <label>Fabiano Gonçalves</label>
+            <a href="index.html"><i class="fa-solid fa-caret-right"></i>Planos e convênios</a></li>
+            <a href="termos.html"><i class="fa-solid fa-caret-right"></i>Termos e documentos</a>
+            <a href="guias.html"><i class="fa-solid fa-caret-right"></i>Guia de internação</a>
             <a href="cadastro.html"><i class="fa-solid fa-caret-right"></i>Cadastro</a>
             <a href="ramais.html"><i class="fa-solid fa-caret-right"></i>Ramais</a>
             <a href="config.html"><i class="fa-solid fa-caret-right"></i>Configuração</a>
-            <p><i class="fa-solid fa-code fa-fade"></i>Fabiano Gonçalves</p>
         </nav>
 
     </header>
 
     <div class="container">
 
-        <form>
-            <label for="nome-find">Plano:</label>
-            <input type="text" id="nome-find">
-            <input type="button" value="Localizar" id="btn-find">
-        </form>
+        <div class="selections">
+            <div class="categoryCard cardPlans">
+                <h2>Planos</h2>
+                <label>Ativos:</label>
+                <p>52</p>
+                <label>Total:</label>
+                <p>55</p>
+            </div>
+            <div class="categoryCard cardDocs">
+                <h2>Documentos</h2>
+                <label>Ativos:</label>
+                <p>25</p>
+                <label>Total:</label>
+                <p>31</p>
+            </div>
+            <div class="categoryCard cardRamais">
+                <h2>Ramais</h2>
+                <label>Ativos:</label>
+                <p>88</p>
+                <label>Total:</label>
+                <p>93</p>
+            </div>
+        </div>
+        <div class="createData">
+            <form action="/createPlan" method="post">
+                <input type="text" name="nome" placeholder="Plano">
+                <input type="text" name="login" placeholder="Usuário">
+                <input type="text" name="password" placeholder="Senha">
+                <input type="text" name="web" placeholder="Site">
+                <input type="text" name="cod" placeholder="Cód. Prestador">
+                <input type="text" name="tel" placeholder="Telefones">
+                <input type="text" name="email" placeholder="Email">
+                <input type="text" name="att" placeholder="Autorização">
+                <input type="text" name="guia" placeholder="Guia">
+                <input type="text" name="senha" placeholder="Senha">
+                <textarea type="text" name="obs" placeholder="Observação:"></textarea>
+                <input type="submit" value="Criar">
+            </form>
+        </div>
 
-        <form action="/createPlan" method="post">
-            <input type="text" name="id" style="display: none;">
-            <label for="nome">Plano:</label>
-            <input type="text" name="nome" required>
-            <br>
-            <label for="login">Login:</label>
-            <input type="text" name="login">
-            <br>
-            <label for="password">Senha:</label>
-            <input type="text" name="password">
-            <br>
-            <label for="web">Site:</label>
-            <input type="text" name="web">
-            <br>
-            <label for="cod">Cod. Prestador:</label>
-            <input type="text" name="cod">
-            <br>
-            <label for="tel">Telefone:</label>
-            <input type="text" name="tel">
-            <br>
-            <label for="email">Email:</label>
-            <input type="text" name="email">
-            <br>
-            <label for="att">Autorização:</label>
-            <input type="text" name="att">
-            <br>
-            <label for="guia">Requer Guia:</label>
-            <input type="text" name="guia">
-            <br>
-            <label for="senha">Requer Senha:</label>
-            <input type="text" name="senha">
-            <br>
-            <label for="obs">Observação:</label>
-            <textarea type="text" name="obs"></textarea>
-            <br>
-            <input type="submit" value="Adicionar Plano" id="btn">
-        </form>
+        <div class="containerList">
 
-        <form action="/createRamal" method="post">
-            <label for="setor">Setor:</label>
-            <input type="text" name="setor" required>
-            <label for="posto">Posto:</label>
-            <input type="text" name="posto" required>
-            <label for="ramal">Ramal:</label>
-            <input type="number" name="ramal" required>
-            <input type="submit" value="Adicionar Ramal">
-        </form>
-        
+            <div class="legends">
+                <span>Plano</span>
+                <span>Criado em</span>
+                <span>Atualizado em</span>
+                <span>Usuário</span>
+                <span>Senha</span>
+                <span>Status</span>
+            </div>
+            <ul class="list">
+                <!-- <li class="card">
+                    <p>Intermédica</p>
+                    <p>10/10/2023</p>
+                    <p>10/10/2023</p>
+                    <p>4325123</p>
+                    <p>intermédica@senha</p>
+                    <p>Ativo</p>
+                    <p class="btnExtend">V</p>
+                        <form action="/uptadePlan" name="form1" id="formEdit">
+                            <span name="id" style="display: none;"></span>
+                            <label for="">Nome:</label>
+                            <input type="text" name="nome" disabled>
+                            <label for="">WebSite:</label>
+                            <input type="text" name="web" disabled>
+                            <label for="">Usuário:</label>
+                            <input type="text" name="login" disabled>
+                            <label for="">Senha:</label>
+                            <input type="text" name="password" disabled>
+                            <label for="">Cod. Prestador:</label>
+                            <input type="text" name="cod" disabled>
+                            <label for="">Telefones:</label>
+                            <input type="text" name="tel" disabled>
+                            <label for="">E-mail:</label>
+                            <input type="text" name="email" disabled>
+                            <label for="">Autorização:</label>
+                            <input type="text" name="att" disabled>
+                            <label for="">Requer Guia:</label>
+                            <input type="text" name="guia" disabled>
+                            <label for="">Requer Senha:</label>
+                            <input type="text" name="senha" disabled>
+                            <label for="">Observação:</label>
+                            <textarea name="obs" disabled></textarea>
+                        </form>
+                    <div class="dataBtn">
+                            <input type="button" form="form1" value="Editar">
+                            <input type="button" value="Cancelar">
+                    </div>
+                </li> -->
+
+            </ul>
+        </div>
+<input type="submit" value="">
+
     </div>
-
 </body>
 
 </html>

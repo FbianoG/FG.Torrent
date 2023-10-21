@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang='pt-br'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='style.css'>
+    <script src='app.js' defer></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #555;
+        }
+
+        .guia {
+            width: 1000px;
+            height: 1360px;
+            background: #fff;
+            /* border: 1px solid red; */
+            margin: 0 auto;
+            position: relative;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            /* border: 1px solid green; */
+            position: absolute;
+        }
+
+        .dataPaciente {
+            /* border: 1px solid red; */
+            position: absolute;
+            top: 447px;
+            width: 100%;
+        }
+
+        .nome {
+            width: 100%;
+            padding-left: 360px;
+        }
+
+        .carteira {
+            margin-top: 23px;
+            margin-left: 245px;
+        }
+
+
+
+        .dataHospital {
+            position: absolute;
+            top: 603px;
+            width: 100%;
+        }
+
+        .hospital {
+            margin-left: 527px;
+        }
+
+        .data {
+            margin-left: 160px;
+            background-color: #fff;
+            width: 159px;
+            text-align: center;
+        }
+
+        @media print {
+            @page {
+                margin: 0px;
+                size: a4;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="guia">
+        <img src="imagens/termopetro.svg" alt="">
+        <div class="dataPaciente">
+            <p class="nome">FABIANO GONÇALVES MACHADO</p>
+            <p class="carteira">1000000541561</p>
+        </div>
+        <div class="dataHospital">
+            <p class="hospital">CHN - Complexo Hospitalar de Niterói</p>
+            <p class="data"></p>
+        </div>
+    </div>
+    <script>
+        let data = new Date()
+        let dia = data.getDate().toString().padStart(2, "0")
+        let mes = (data.getMonth() + 1).toString().padStart(2, "0")
+        let ano = data.getFullYear().toString()
+        let textData = document.querySelectorAll('.data')[0]
+        let textNome = document.querySelectorAll('.nome')[0]
+        let textCarteira = document.querySelectorAll('.carteira')[0]
+        textData.textContent = `${dia} / ${mes} / ${ano}`
+
+        let dadosPaciente = JSON.parse(localStorage.getItem("Termo. Confirm. Atend:"))
+        textNome.textContent = dadosPaciente.nome.toUpperCase()
+        textCarteira.textContent = dadosPaciente.carteira
+    </script>
+</body>
+
+</html>

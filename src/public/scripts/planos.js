@@ -1,43 +1,131 @@
 let planos = []
 
-async function get() {
-    let api = await fetch('/index')
-    let dados = await api.json()
-    console.log(dados);
-    dados.forEach(plano => {
-        planos.push(plano)
-    })
-    gera()
+
+async function getPlansDataBase() { // pega os dados dos planos do "DataBase"
+    try {
+        let api = await fetch('/index')
+        let dados = await api.json()
+        if (dados) {
+            dados.forEach(element => {
+                planos.push(element)
+            })
+            loadAll()
+        } else {
+            console.log("Nenhum dado foi encontrado");
+        }
+    } catch (error) {
+        console.log("Um erro encontrado: ", error);
+    }
 }
-get()
 
-function gera() {
 
-    // Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento com transition já definida)
-    document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => {
+getPlansDataBase() // pega os dados dos planos do "DataBase"
+
+
+
+
+function loadAll() {
+
+    // Variáveis
+
+    let list = document.querySelector('#lista')
+    let searchInput = document.querySelector('#search-input')
+
+
+
+
+    // Eventos
+
+    document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => { // Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento)
         e.target.style.transition = '400ms'
     })
+    list.addEventListener('click', coppyEvent) // Copia "login" ou "senha"
+    list.addEventListener('click', openDeepData) // Cria e abre as "informações adicionais" dos planos
+    searchInput.addEventListener('keyup', filterForName) // Pesquisa "plano" pelo valor do "input"
 
-    let lista = document.querySelector('#lista')
-    function gerar(planos) {
-        lista.innerHTML = ''
-        for (let i = 0; i < planos.length; i++) {
-            let novoPlano = document.createElement('div')
-            novoPlano.className = 'card'
-            novoPlano.innerHTML = `
-                <h2>${planos[i].nome}</h2><label>User: </label><p class='user'>${planos[i].login}</p><label>Senha: </label><p class='password'>${planos[i].password}</p><div class="data">
-                <a class='file'><i class="fa-solid fa-folder file"></i></a>
-                <a href="${planos[i].web}" target="_blank"><i class="fa-solid fa-globe"></i></a>
-                </div>
-            `
-            lista.appendChild(novoPlano)
-        }
-        capitalizar()
+
+
+
+    // Funções
+
+    function createCardPlan(planos) { // Cria e gera os "cards dos planos"
+        let listOrdened = planos.sort((a,b)=>{ // Ordenar "planos"
+            return a.nome.localeCompare(b.nome)
+        })
+        list.innerHTML = ''
+        listOrdened.forEach(element => {
+            let newCardPlan = document.createElement('div') // Cria o HTML dos "cards dos planos"
+            newCardPlan.className = 'card'
+            newCardPlan.innerHTML = createCardHtml(element)
+            list.appendChild(newCardPlan)
+        });
     }
-    gerar(planos)
 
-    lista.addEventListener('click', function (event) {
-        const target = event.target;
+    function createCardHtml(e) { // Cria o HTML dos "cards dos planos"
+        const html = `
+        <h2>${e.nome}</h2>
+        <label>User: </label>
+        <p class='user'>${e.login}</p>
+        <label>Senha: </label>
+        <p class='password'>${e.password}</p>
+        <div class="data">
+            <a class='file'><i class="fa-solid fa-folder-open"></i></a>
+            <a href="${e.web}" target="_blank"><i class="fa-solid fa-globe"></i></a>
+        </div>
+    `
+        return html
+    }
+
+    function openDeepData(e) { // Cria e abre as "informações adicionais" dos planos
+        let eventFather = e.target.parentElement
+        if (eventFather.classList.value == "file") {
+            let alvo = eventFather.parentElement.parentElement.querySelectorAll('h2')[0]
+            let findTarget = planos.find(element => {
+                return element.nome == alvo.textContent.toLowerCase()
+            })
+            if (findTarget) {
+                let deepDataCard = document.querySelectorAll('.deep')[0]
+                let newCardPlan = document.createElement('div')
+                newCardPlan.className = 'dados'
+                newCardPlan.innerHTML = createCardPlanHtml(findTarget)
+                deepDataCard.appendChild(newCardPlan)
+                deepDataCard.style.opacity = '1'
+                deepDataCard.style.zIndex = '10'
+                document.querySelector('#exit').addEventListener('click', (ex) => {
+                    ex.target.parentElement.parentElement.remove()
+                    deepDataCard.style.opacity = '0'
+                    deepDataCard.style.zIndex = '-1'
+                })
+            }
+            else {
+                console.log('Nenhum plano foi encontrado!')
+            }
+        }
+        else {
+            return
+        }
+    }
+
+    function createCardPlanHtml(e) { // Cria HTML das "informações adicionais" dos planos
+        const html = `
+            <h1>${e.nome.toUpperCase()}</h1>
+            <br><br>
+            <p><b>Código de prestador:</b> ${e.data.cod}</p>
+            <br>
+            <p><b>Telefone:</b> ${e.data.tel}</p>
+            <p><b>Email:</b> ${e.data.email}</p>
+            <br>
+            <p><b>Autorização:</b> ${e.data.att}</p>
+            <p><b>Senha:</b> ${e.data.senha}</p>
+            <p><b>Guia:</b> ${e.data.guia}</p><br>
+            <p><b>Obs:</b> ${e.data.obs}</p>
+            <span><i class="fa-solid fa-arrow-right-from-bracket" id='exit'></i></span>
+        `
+        return html
+    }
+
+    function coppyEvent(e) { // Copia "login" ou "senha"
+        const target = e.target;
         if (target.classList.value == 'user' || target.classList.value == 'password') {
             let popup = document.querySelectorAll('.popup')[0]
             let copiado = document.querySelector('#copiado')
@@ -53,65 +141,19 @@ function gera() {
                 popup.style.opacity = '0'
             }
         }
-        else if (target.parentElement.classList.value == 'file') {
-            let alvo = target.parentElement.parentElement.parentElement.querySelectorAll('h2')[0]
-            let alvoEncontrado = planos.find(function (obj) {
-                return obj.nome == alvo.textContent.toLowerCase()
-            })
-            console.log(alvoEncontrado);
-            if (alvoEncontrado) {
-                let deep = document.querySelectorAll('.deep')[0]
-                let dados = document.createElement('div')
-                dados.className = 'dados'
-                dados.innerHTML = `
-                    <h1>${alvoEncontrado.nome.toUpperCase()}</h1>
-                    <br><br>
-                    <p><b>Código de prestador:</b> ${alvoEncontrado.data.cod}</p>
-                    <br>
-                    <p><b>Telefone:</b> ${alvoEncontrado.data.tel}</p>
-                    <p><b>Email:</b> ${alvoEncontrado.data.email}</p>
-                    <br>
-                    <p><b>Autorização:</b> ${alvoEncontrado.data.att}</p>
-                    <p><b>Senha:</b> ${alvoEncontrado.data.senha}</p>
-                    <p><b>Guia:</b> ${alvoEncontrado.data.guia}</p><br>
-                    <p><b>Obs:</b> ${alvoEncontrado.data.obs}</p>
-                    <span><i class="fa-solid fa-arrow-right-from-bracket" id='exit'></i></span>
-                `
-                deep.insertBefore(dados, deep.firstChild)
-                deep.style.opacity = '1'
-                deep.style.zIndex = '10'
-                document.querySelector('#exit').addEventListener('click', (ex) => {
-                    ex.target.parentElement.parentElement.remove()
-                    deep.style.opacity = '0'
-                    deep.style.zIndex = '-1'
-                })
-            }
-            else {
-                console.log('não encontrado')
-            }
-        }
-        else {
-            return
-        }
-    });
-
-    let search = document.querySelector('#search-input')
-
-    search.addEventListener('keyup', () => {
-        let resultado = planos.filter(plano => {
-            return plano.nome.toLowerCase().includes(search.value.toLowerCase())
-        })
-        gerar(resultado)
-    })
-
-    function capitalizar() {
-        let h2 = document.querySelectorAll('h2')
-        h2.forEach(titulo => {
-            let arrayTitulo = titulo.textContent.split(' ')
-            let tituloCapitalizado = arrayTitulo.map(palavra => {
-                return palavra.charAt(0).toUpperCase() + palavra.slice(1)
-            })
-            titulo.textContent = tituloCapitalizado.join(' ')
-        })
     }
+
+    function filterForName() { // Pesquisa "plano" pelo valor do "input"
+        let filterPlanos = planos.filter(element => {
+            return element.nome.toLowerCase().includes(searchInput.value.toLowerCase())
+        })
+        createCardPlan(filterPlanos)
+    }
+
+
+
+    // Chamados
+
+    createCardPlan(planos) // Cria e gera os "cards dos planos"
+
 }

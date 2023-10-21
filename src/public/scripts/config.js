@@ -1,48 +1,114 @@
-let btnFind = document.querySelector('#btn-find')
-let input = document.querySelector('#nome-find')
-let btn = document.querySelector('#btn')
+let cardPlans = document.querySelectorAll('.cardPlans')[0]
+let cardDocs = document.querySelectorAll('.cardDocs')[0]
+let cardRamais = document.querySelectorAll('.cardRamais')[0]
+let list = document.querySelectorAll('.list')[0]
 
-// Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento com transition já definida)
-window.addEventListener('DOMContentLoaded', (e) => {
-    document.querySelectorAll('nav')[0].style.transition = '400ms'
-})
 
-btnFind.addEventListener('click', async () => {
+cardPlans.addEventListener('click', getData)
+cardDocs.addEventListener('click', getData)
+cardRamais.addEventListener('click', getData)
+
+
+
+
+
+
+
+async function getData(e) {
+    let inf = this.querySelectorAll('h2')[0].textContent
     try {
-        let api = await fetch(`/find?nome=${input.value.toLowerCase()}`)
-        let data = await api.json()
-        if (data) {
-            btn.parentElement.action = '/att'
-            btn.value = 'Editar Plano'
-            let id = document.querySelector('input[name="id"')
-            let nome = document.querySelector('input[name="nome"')
-            let login = document.querySelector('input[name="login"')
-            let password = document.querySelector('input[name="password"')
-            let web = document.querySelector('input[name="web"')
-            let cod = document.querySelector('input[name="cod"')
-            let tel = document.querySelector('input[name="tel"')
-            let email = document.querySelector('input[name="email"')
-            let att = document.querySelector('input[name="att"')
-            let guia = document.querySelector('input[name="guia"')
-            let senha = document.querySelector('input[name="senha"')
-            let obs = document.querySelector('textarea[name="obs"')
-            id.value = data._id
-            nome.value = data.nome
-            login.value = data.login
-            password.value = data.password
-            web.value = data.web
-            cod.value = data.data.cod
-            tel.value = data.data.tel
-            email.value = data.data.email
-            att.value = data.data.att
-            guia.value = data.data.guia
-            senha.value = data.data.senha
-            obs.value = data.data.obs
-        }
+        const api = await fetch(`/getData?inf=${inf}`)
+        const data = await api.json()
+        getList(data)
+    } catch (error) {
+        console.error({ menssage: "Um erro foi encontrado: ", error })
+    }
+}
 
-        // btnFind 
+function getList(e) {
+    console.log(e);
+    list.innerHTML = ""
+    e.forEach(element => {
+        let newCardPlan = document.createElement('li')
+        newCardPlan.classList = 'card'
+        newCardPlan.innerHTML = newCardPlanHtml(element)
+        list.appendChild(newCardPlan)
+    });
+    createEvent()
+}
+
+function createEvent() {
+    let btnExtend = document.querySelectorAll('.btnExtend')
+    let btnEdit = document.querySelectorAll('.btnEdit')
+    btnExtend.forEach(element => {
+        element.addEventListener('click', extendCard)
+    });
+    btnEdit.forEach(element => {
+        element.addEventListener('click', editable)
+    });
+}
+
+function extendCard(e) {
+    let card = this.parentElement
+    if (this.style.transform == "rotate(180deg)") {
+        this.style.transform = ""
+        card.style.height = ""
+    } else {
+        this.style.transform = "rotate(180deg)"
+        // console.log(card);
+        card.style.height = "auto"
     }
-    catch (err) {
-        console.log(err)
-    }
-})
+}
+
+function editable() {
+    let card = this.parentElement.parentElement
+    let input = card.querySelectorAll('input')
+    let textArea = card.querySelectorAll("textArea")[0]
+    input.forEach(element => {
+        element.removeAttribute("disabled")
+    });
+    textArea.removeAttribute("disabled")
+}
+
+function newCardPlanHtml(e) {
+    const html = `
+        <p>${e.nome}</p>
+        <p>${e.create.slice(0, 10).split('-').reverse().join('/')}</p>
+        <p>${e.create.slice(0, 10).split('-').reverse().join('/')}</p>
+        <p>${e.login}</p>
+        <p>${e.password}@2020</p>
+        <p>${e.active}</p>
+        <p class="btnExtend">V</p>
+        <form action="/updatePlan" id="formEdit" method="post">
+            <input type="text" name="id" disabled value="${e.id}" style="display: none">
+            <label for="">Nome:</label>
+            <input type="text" name="nome" disabled value="${e.nome}">
+            <label for="">WebSite:</label>
+            <input type="text" name="web" disabled value="${e.web}">
+            <label for="">Usuário:</label>
+            <input type="text" name="login" disabled value="${e.login}">
+            <label for="">Senha:</label>
+            <input type="text" name="password" disabled value="${e.password}">
+            <label for="">Cod. Prestador:</label>
+            <input type="text" name="cod" disabled value="${e.data.cod}">
+            <label for="">Telefones:</label>
+            <input type="text" name="tel" disabled value="${e.data.tel}">
+            <label for="">E-mail:</label>
+            <input type="text" name="email" disabled value="${e.data.email}">
+            <label for="">Autorização:</label>
+            <input type="text" name="att" disabled value="${e.data.att}">
+            <label for="">Requer Guia:</label>
+            <input type="text" name="guia" disabled value="${e.data.guia}">
+            <label for="">Requer Senha:</label>
+            <input type="text" name="senha" disabled value="${e.data.senha}">
+            <label for="">Observação:</label>
+            <textarea name="obs" disabled >${e.data.obs}</textarea>
+            <div class="dataBtn">
+                    <input type="button" value="Editar" class="btnEdit">
+                    <input type="submit" value="Update">
+                    <input type="button" value="Cancelar">
+            </div>
+        </form>
+    `
+    return html
+}

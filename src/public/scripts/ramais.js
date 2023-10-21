@@ -1,67 +1,73 @@
-// VARIÁVEIS //
-let search = document.querySelector('#search-input')
+// Viriáveis //
+let searchInput = document.querySelector('#search-input')
 let listaRamais = document.querySelectorAll('.ramais-card')[0]
 let title = document.querySelectorAll('h2')[0]
 let ramais = []
 
 
 
-// CHAMADAS //
-getRamais()
 
+// Eventos //
 
-
-// EVENTOS //
 document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => { // Cria style.transiton no Menu
     e.target.style.transition = '400ms'
 })
-
-search.addEventListener('keyup', () => { // Filtrar ramais pelo texto digitado no input
-    let filter = ramais.filter(ramal => {
-        return ramal.setor.includes(search.value.toLowerCase())
-    })
-    gerar(filter)
-})
+searchInput.addEventListener('keyup', filterForSetor) // Pesquisar "setor" pelo valor do"input"
 
 
 
-// FUNÇÕES //
+
+// Funções //
 
 async function getRamais() { // Pegar dados vindo do DataBase 
-    const getRamais = await fetch('/find-ramais')
-    ramais = await getRamais.json()
-    gerar(ramais)
+    try {
+        const getRamais = await fetch('/fiand-ramais')
+        const Data = await getRamais.json() 
+        if (Data.length > 0) {
+            ramais = Data
+            gerar(ramais)
+        } else {
+            console.log("Não foram encontrados dados.");
+        }
+    } catch (error) {
+        console.error({message: "Um erro foi encontrado", error});
+    }
 }
 
-function gerar(object) { // Gera a lista de ramais com base nos dados obtidos do DataBase
-    listaRamais.innerHTML = ''
-    object.forEach(ramal => {
-        let newCard = document.createElement('li')
-        newCard.classList = 'card'
-        newCard.innerHTML = `
-            <p class="card-setor">${ramal.setor}</p>
-            <p class="card-posto">${ramal.posto}</p>
-            <p class="card-ramal">${ramal.ramal}</p>
-        `
-        listaRamais.appendChild(newCard)
+function gerar(e) {
+    let oderedRamais = orderRamais(e) // Ordena "lista de ramais" por ordem alfabética
+    listaRamais.innerHTML = ""
+    oderedRamais.forEach(element => {
+        let newCardRamal = document.createElement('li')
+        newCardRamal.classList = "card"
+        newCardRamal.innerHTML = cardRamalHtml(element) // cria o "HTML" do "ramal"
+        listaRamais.appendChild(newCardRamal)
     })
-    ordenar()
 }
 
-function ordenar() { // Ordena Array.Objects por ordem alfabética
-    let card = listaRamais.querySelectorAll('li')
-    let ordenados = Array.from(card).sort((a, b) => {
-        return a.children[0].innerText.localeCompare(b.children[0].innerText)
-    })
-    listaRamais.innerHTML = ''
-    ordenados.forEach(element => {
-        let newCard = document.createElement('li')
-        newCard.classList = 'card'
-        newCard.innerHTML = `
-            <p class="card-setor">${element.children[0].innerText}</p>
-            <p class="card-posto">${element.children[1].innerText}</p>
-            <p class="card-ramal">${element.children[2].innerText}</p>
-        `
-        listaRamais.appendChild(newCard)
+function cardRamalHtml(e) { // cria o "HTML" do "ramal"
+    const html = `
+    <p class="card-setor">${e.setor}</p>
+    <p class="card-posto">${e.posto}</p>
+    <p class="card-ramal">${e.ramal}</p>`
+    return html
+}
+
+function orderRamais(e) { // Ordena "lista de ramais" por ordem alfabética
+    return Array.from(e).sort((a, b) => {
+        return a.setor.localeCompare(b.setor)
     })
 }
+
+function filterForSetor() { // Pesquisar "setor" pelo valor do"input"
+    let filter = ramais.filter(ramal => {
+        return ramal.setor.includes(searchInput.value.toLowerCase())
+    })
+    gerar(filter)
+}
+
+
+
+// Chamadas //
+
+getRamais() // Pegar dados vindo do DataBase

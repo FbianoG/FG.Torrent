@@ -45,13 +45,13 @@
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    gap: 20px;
-    row-gap: 20px;
+    column-gap: 40px;
+    /* row-gap: 20px; */
 }
 
 /* Card Plans */
 .card {
-    width: 230px;
+    width: 260px;
     height: 95px;
     background: #fdfdfd;
     border: 1px solid #eee;
@@ -61,12 +61,14 @@
     flex-wrap: wrap;
     padding: 5px;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .card h2 {
     width: 100%;
     color: #5382b9;
     font-weight: 600;
+    text-transform: capitalize;
 }
 
 .card .data {

@@ -10,8 +10,10 @@ router.get('/index', control.getPlans)
 router.get('/find', control.findPlan)
 router.get('/find-ramais', control.getRamais)
 
+router.get('/getData', control.getData)
+
 //PUT
-router.post('/att', control.updatePlan)
+router.post('/updatePlan', control.updatePlan)
 
 
 

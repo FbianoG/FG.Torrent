@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang='pt-br'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel="shortcut icon" href="imagens/favicon.png" type="image/x-icon">
+    <link rel='stylesheet' href='./css/cadastro.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="./scripts/cadastro.js" defer></script>
+    <title>FG.Torrent</title>
+</head>
+
+<body>
+    <header>
+        <ul>
+            <h3>FG</h3>
+            <li><i class="fa-solid fa-notes-medical"></i></li>
+            <li><i class="fa-solid fa-suitcase-medical"></i></li>
+            <li><i class="fa-solid fa-file-waveform"></i></li>
+            <li class="active"><i class="fa-solid fa-address-card"></i></li>
+            <li><i class="fa-solid fa-address-card"></i></li>
+            <li><i class="fa-solid fa-phone"></i></li>
+            <li><i class="fa-regular fa-window-restore"></i></li>
+            <li><i class="fa-solid fa-gear"></i></li>
+        </ul>
+        <nav>
+            <h3>FG.Torrent</h3>
+            <label>Fabiano Gonçalves</label>
+            <a href="index.html"><i class="fa-solid fa-caret-right"></i>Planos e convênios</a></li>
+            <a href="termos.html"><i class="fa-solid fa-caret-right"></i>Termos e documentos</a>
+            <a href="guias.html"><i class="fa-solid fa-caret-right"></i>Guia manual</a>
+            <a href="cadastro.html"><i class="fa-solid fa-caret-right"></i>Cadastro</a>
+            <a href="etiqueta.html"><i class="fa-solid fa-caret-right"></i>Etiqueta</a>
+            <a href="ramais.html"><i class="fa-solid fa-caret-right"></i>Ramais</a>
+            <a href="sites.html"><i class="fa-solid fa-caret-right"></i>Sites</a>
+            <a href="config.html"><i class="fa-solid fa-caret-right"></i>Configuração</a>
+        </nav>
+
+    </header>
+
+    <div class="container">
+        <h2 class="title">Cadastro de Paciente</h2>
+        <div class="container-card">
+            <div class="card">
+                <h4>Dados do Paciente</h4>
+                <label>Nome Completo:</label>
+                <input type="text" id="nome">
+                <label>Data Nasc.:</label>
+                <input type="date" id="">
+                <label>CPF:</label>
+                <input type="number" id="">
+                <label>Plano:</label>
+                <input type="text" id="">
+                <label>Matrícula:</label>
+                <input type="number" id="">
+                <p id="date"></p>
+            </div>
+            <div class="card">
+                <h4>Dados do Responsável</h4>
+                <label>Nome Completo:</label>
+                <input type="text" id="">
+                <label>CPF:</label>
+                <input type="number" id="">
+            </div>
+            <div class="card">
+                <h4>Dados da Residência</h4>
+                <label>Cep:</label>
+                <input type="number" id="cep">
+                <label>Rua:</label>
+                <input type="text" id="rua">
+                <label>Bairro:</label>
+                <input type="text" id="bairro">
+                <label>Cidade:</label>
+                <input type="text" id="cidade">
+                <label>UF:</label>
+                <input type="text" id="uf">
+            </div>
+            <div class="card">
+                <h4>Contatos</h4>
+                <label>Tel. Paciente:</label>
+                <input type="number" id="">
+                <label>Tel. Responsável:</label>
+                <input type="number" id="">
+                <label>E-mail:</label>
+                <input type="email" id="">
+            </div>
+        </div>
+        <div class="container-button">
+            <button class="btn" id="btn-clear">
+                <i class="fa-solid fa-broom"></i>
+                <p>Limpar</p>
+            </button>
+            <button class="btn" id="btn-print">
+                <i class="fa-solid fa-print"></i>
+                <p>Imprimir</p>
+            </button>
+        </div>
+</body>
+
+</html>

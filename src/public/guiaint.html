@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FG.Torrent</title>
+    <link rel="shortcut icon" href="imagens/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../imagens/favicon.png" type="image/x-icon">
     <style>
         * {
@@ -238,6 +239,7 @@
         .descricao p {
             margin-left: 0px;
             width: 460px;
+            overflow: hidden;
             margin-bottom: -15px;
         }
 
@@ -313,21 +315,18 @@
             z-index: 0;
         }
 
-        #tampo {
-            background: white;
+        #logoImage {
+            background: #fff;
             position: relative;
-            top: -2409px;
-            width: 125px;
-            height: 58px;
+            top: -2404px;
+            width: 200px;
+            height: 67px;
             left: 46px;
         }
 
         #logo {
-            position: relative;
-            width: 138px;
-            height: 113px;
-            top: -2510px;
-            left: 46px;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -399,8 +398,9 @@
             <p id="contratado3">CHN - Complexo Hospitalar de Niterói</p>
             <p id="dataSol"></p>
             <div id="borda" style="border: black;"></div>
-            <div id="tampo" style="background: none;"></div>
-            <img id="logo" src="" alt="" style="opacity: 0;">
+            <div id="logoImage">
+                <img id="logo" src="" alt="">
+            </div>
         </div>
     </div>
 
@@ -441,7 +441,6 @@
     <script>
         let dadosPacienteJson = localStorage.getItem('dadosPaciente')
         let dadosPaciente = JSON.parse(dadosPacienteJson)
-        console.log(dadosPaciente);
         // Data
         const data = new Date()
         const dia = String(data.getDate()).padStart(2, "0")
@@ -481,21 +480,15 @@
 
         // PROCEDIMENTOS
         for (let i = 0; i < dadosPaciente.proced.length; i++) {
+            document.querySelector(`#tb${i + 1}`).innerText = '22'
             document.querySelector(`#cod${i + 1}`).innerText = dadosPaciente.proced[i]
             document.querySelector(`#des${i + 1}`).innerText = dadosPaciente.des[i]
             document.querySelector(`#qtd${i + 1}`).innerText = dadosPaciente.qtd[i].padStart(2, '0')
             document.querySelector(`#qtda${i + 1}`).innerText = dadosPaciente.qtd[i].padStart(2, '0')
-            let valores = ['10102019', '10104020', '10104011']
-            if (valores.includes(document.querySelector(`#cod${i + 1}`).innerText)) {
-                document.querySelector(`#tb${i + 1}`).innerText = '22'
-            }
-            else if (document.querySelector(`#cod${i + 1}`).innerText == '') {
+            if (document.querySelector(`#cod${i + 1}`).innerText == '') {
                 document.querySelector(`#tb${i + 1}`).innerText = ''
                 document.querySelector(`#qtd${i + 1}`).innerText = ''
                 document.querySelector(`#qtda${i + 1}`).innerText = ''
-            }
-            else {
-                document.querySelector(`#tb${i + 1}`).innerText = '18'
             }
         }
 
@@ -505,54 +498,31 @@
         // }
 
 
-        function capitalizar() {
-            let paragrafos = [...document.querySelectorAll('p')]
-            paragrafos.map(function (cada) {
-                let texto = cada.textContent.split(' ')
-                cada.textContent = texto.map(function (palavra) {
-                    return palavra.charAt(0).toUpperCase() + palavra.slice(1)
-                }).join(' ')
-            })
-        }
-        capitalizar()
-
-
         // Mudança da logo
-        mudarLogo()
+
         function mudarLogo() {
-            let plano = localStorage.getItem("plano")
-            if (plano == "amil") {
-                document.getElementById("logo").src = "../imagens/logoamil.png"
-                document.getElementById("logo").style.width = "175px"
-                document.getElementById("logo").style.height = "155px"
-                document.getElementById("logo").style.top = "-2533px"
-            } else if (plano == "petrobras") {
-                document.getElementById("logo").src = "../imagens/logopetro.png"
-                document.getElementById("logo").style.width = "200px"
-            } else if (plano == "golden") {
-                document.getElementById("logo").src = "../imagens/logogolden.png"
-                document.getElementById("logo").style.width = "200px"
-            } else if (plano == "caberj") {
-                document.getElementById("logo").style.opacity = "0"
-                document.getElementById('tampo').style.background = 'none'
-                document.getElementById('borda').style.border = 'black'
-            } else if (plano == "fio") {
-                document.getElementById("logo").src = "../imagens/logofiosaude.png"
-                document.getElementById("logo").style.width = "200px"
-                document.getElementById("logo").style.height = "90px"
-                document.getElementById("logo").style.left = "26px"
-                document.getElementById("logo").style.top = "-2504px"
-            } else if (plano == "ipalerj") {
-                document.getElementById("logo").src = "../imagens/logoipalerj.png"
-                document.getElementById("logo").style.width = "260px"
-                document.getElementById("logo").style.height = "95px"
-            } else if (plano == "assim") {
-                document.getElementById("logo").src = "../imagens/logoassim.png"
-                document.getElementById("logo").style.width = "200px"
-                document.getElementById("logo").style.height = "65px"
-                document.getElementById("logo").style.top = "-2493px"
+            let logoList = {
+                "amil": "./imagens/planos/logoamil.png",
+                "assim": "./imagens/planos/logoassim.png",
+                "golden": "./imagens/planos/logogolden.png",
+                "fio": "./imagens/planos/logofiosaude.png",
+                "ipalerj": "./imagens/planos/logoipalerj.png",
+                "intermédica": "./imagens/planos/logointermedica.png",
+                "petrobras": "./imagens/planos/logopetro.png",
+                "vale": "./imagens/planos/logopetro.png",
+            }
+            let data = JSON.parse(localStorage.getItem("dadosPaciente"))
+            let plano = data.plano
+            if (plano in logoList) {
+                document.querySelector('#logo').src = logoList[plano]
+            } else {
+                document.querySelector('#logoImage').style.display = "none"
             }
         }
+
+
+
+        mudarLogo()
 
     </script>
 </body>

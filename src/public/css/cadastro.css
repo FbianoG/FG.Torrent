@@ -1,13 +1,5 @@
 @import url('header.css');
 
-.internacao {
-    width: 615px;
-    display: flex;
-    /* gap: 15px; */
-    flex-wrap: wrap;
-    margin: 0 auto 30px;
-}
-
 .container h2 {
     margin: 0 auto;
     text-align: center;
@@ -18,26 +10,23 @@
     border-bottom: 1px solid #ddd;
     color: #5382b9;
 }
-.typeGuiaBar {
-    background: #fdfdfd;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 0 10px;
-    margin: 8px auto;
-}
 
-#typeGuiaSelect {
-    width: 220px;
+.container-card {
+    width: 615px;
+    display: flex;
+    /* gap: 15px; */
+    flex-wrap: wrap;
+    margin: 0 auto 30px;
 }
-
 
 .card {
     background: #fdfdfd;
     border: 1px solid #eee;
     border-radius: 10px;
     padding: 0 0 10px 0;
+    position: relative;
     margin: 8px 0;
-    display: none;
+
 }
 
 .card h4 {
@@ -46,7 +35,7 @@
     color: #606060;
 }
 
-label {
+.card label {
     display: inline-block;
     width: 180px;
     padding: 10px;
@@ -68,60 +57,21 @@ input:focus {
     border-color: #19acff;
 }
 
-select:focus {
-    border-color: #19acff;
-}
-
-select {
-    border-radius: 5px;
-    border: 1px solid #688eb969;
-    outline: none;
-    padding: 3px;
-    width: 400px;
-}
-
-.card .data {
-    width: 130px;
-}
-
-.card .labelMin {
-    width: 125px;
-    margin-left: 25px;
-    padding-right: 0px;
-}
-
-.card i {
-    text-align: center;
-    margin: 0 200px;
-    font-size: 20px;
-    color: #365477;
-}
-
-.card i:hover {
-    opacity: 0.5;
-    cursor: pointer;
-    scale: 1.5;
-    transition: 400ms;
-}
-
-.procedimentos {
-    margin-bottom: 20px;
-}
-
-.status {
+.container-button {
     margin: 0 auto;
-    display: none;
+    display: flex;
     justify-content: center;
-    /* gap: 100px; */
+    gap: 100px;
 }
 
-.cardStatus {
+.btn {
     width: 100px;
     height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     /* gap: 5px; */
+    border: none;
     flex-direction: column;
     border-radius: 15px;
     background: #7a8ea723;
@@ -131,14 +81,55 @@ select {
     margin: 0 50px;
 }
 
-.cardStatus i {
+.btn i {
     font-size: 30px;
 }
 
-.cardStatus:hover {
+.btn:hover {
     background: #19acff;
     color: #fdfdfd;
     transition: 500ms;
 }
 
+#date {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    display: none;
+    font-weight: bold;
+}
 
+
+
+@media print {
+
+    header {
+        display: none;
+    }
+
+    .container {
+        padding: 0;
+        /* width: 100%; */
+    }
+
+    .container-card {
+        width: 100%;
+    }
+
+    .container-button {
+        display: none;
+    }
+
+    .card {
+        border: none;
+        width: 100%;
+    }
+
+    input {
+        border: none;
+    }
+
+    #date {
+        display: block;
+    }
+}

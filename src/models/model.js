@@ -1,10 +1,8 @@
 const mongoose = require('mongoose')
 
 const Planos = mongoose.model('planos', {
-    nome: {
-        type: String,
-        unique: true,
-    },
+    id: { type: Number, unique: true },
+    nome: { type: String, unique: true },
     login: String,
     password: String,
     web: String,
@@ -17,12 +15,15 @@ const Planos = mongoose.model('planos', {
         senha: String,
         obs: String,
     },
+    create: Date,
+    update: Date,
+    active: Boolean,
 })
 
 const Ramais = mongoose.model('ramais', {
     setor: String,
     posto: String,
-    ramal: Number,
+    ramal: { type: String, unique: true },
 })
 
 module.exports = {
