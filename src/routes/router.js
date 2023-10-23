@@ -7,13 +7,13 @@ router.post('/createRamal', control.createRamal)
 
 //GET
 router.get('/index', control.getPlans)
-router.get('/find-ramais', control.getRamais)
+router.get('/ramais', control.getRamais)
 
 router.get('/getData', control.getData)
 
 //PUT
 router.post('/updatePlan', control.updatePlan)
-
+router.post('/updateBranche', control.updateBranche)
 
 
 

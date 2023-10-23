@@ -20,79 +20,51 @@
             <li><i class="fa-solid fa-suitcase-medical"></i></li>
             <li><i class="fa-solid fa-file-waveform"></i></li>
             <li><i class="fa-solid fa-address-card"></i></li>
+            <li><i class="fa-solid fa-address-card"></i></li>
             <li><i class="fa-solid fa-phone"></i></li>
+            <li><i class="fa-regular fa-window-restore"></i></li>
             <li class="active"><i class="fa-solid fa-gear"></i></li>
+
         </ul>
         <nav>
             <h3>FG.Torrent</h3>
             <label>Fabiano Gonçalves</label>
             <a href="index.html"><i class="fa-solid fa-caret-right"></i>Planos e convênios</a></li>
             <a href="termos.html"><i class="fa-solid fa-caret-right"></i>Termos e documentos</a>
-            <a href="guias.html"><i class="fa-solid fa-caret-right"></i>Guia de internação</a>
+            <a href="guias.html"><i class="fa-solid fa-caret-right"></i>Guia manual</a>
             <a href="cadastro.html"><i class="fa-solid fa-caret-right"></i>Cadastro</a>
+            <a href="etiqueta.html"><i class="fa-solid fa-caret-right"></i>Etiqueta</a>
             <a href="ramais.html"><i class="fa-solid fa-caret-right"></i>Ramais</a>
+            <a href="sites.html"><i class="fa-solid fa-caret-right"></i>Sites</a>
             <a href="config.html"><i class="fa-solid fa-caret-right"></i>Configuração</a>
         </nav>
 
     </header>
 
     <div class="container">
-
+        <h2>Configurações</h2>
         <div class="selections">
-            <div class="categoryCard cardPlans">
-                <h2>Planos</h2>
-                <label>Ativos:</label>
-                <p>52</p>
-                <label>Total:</label>
-                <p>55</p>
+            <div class="categoryCard">
+                <h3>Planos</h3>
+                <i class="fa-solid fa-sliders cardPlans"></i>
             </div>
-            <div class="categoryCard cardDocs">
-                <h2>Documentos</h2>
-                <label>Ativos:</label>
-                <p>25</p>
-                <label>Total:</label>
-                <p>31</p>
+            <div class="categoryCard">
+                <h3>Documentos</h3>
+                <i class="fa-solid fa-sliders cardDocs"></i>
             </div>
-            <div class="categoryCard cardRamais">
-                <h2>Ramais</h2>
-                <label>Ativos:</label>
-                <p>88</p>
-                <label>Total:</label>
-                <p>93</p>
+            <div class="categoryCard">
+                <h3>Ramais</h3>
+                <i class="fa-solid fa-sliders cardRamais"></i>
+            </div>
+            <div class="categoryCard">
+                <h3>Sites</h3>
+                <i class="fa-solid fa-sliders cardSites"></i>
             </div>
         </div>
-        <div class="createData">
-            <form action="/createPlan" method="post">
-                <input type="text" name="nome" placeholder="Plano">
-                <input type="text" name="login" placeholder="Usuário">
-                <input type="text" name="password" placeholder="Senha">
-                <input type="text" name="web" placeholder="Site">
-                <input type="text" name="cod" placeholder="Cód. Prestador">
-                <input type="text" name="tel" placeholder="Telefones">
-                <input type="text" name="email" placeholder="Email">
-                <input type="text" name="att" placeholder="Autorização">
-                <input type="text" name="guia" placeholder="Guia">
-                <input type="text" name="senha" placeholder="Senha">
-                <textarea type="text" name="obs" placeholder="Observação:"></textarea>
-                <input type="submit" value="Criar">
-            </form>
-        </div>
-
         <div class="containerList">
-
-            <div class="legends">
-                <label>Plano</label>
-                <label>Criado em</label>
-                <label>Atualizado em</label>
-                <label>Usuário</label>
-                <label>Senha</label>
-                <label>Status</label>
-            </div>
-            <ul class="list">
-            </ul>
+            <div class="legends"></div>
+            <ul class="list"></ul>
         </div>
-<input type="submit" value="">
-
     </div>
 </body>
 

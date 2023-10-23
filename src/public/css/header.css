@@ -8,6 +8,7 @@
 body {
     background: #f2f3f6;
     height: 100vh;
+    width: 100vw;
 }
 
 header {
@@ -142,6 +143,6 @@ header nav p i {
 
 .container {
     width: 100%;
-    padding: 20px 0px 20px 60px;
+    padding: 20px 0 20px 60px;
     height: auto;
 }

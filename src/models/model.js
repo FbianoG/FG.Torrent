@@ -21,8 +21,8 @@ const Planos = mongoose.model('planos', {
 })
 
 const Ramais = mongoose.model('ramais', {
+    id: {type: Number, unique: true},
     setor: String,
-    posto: String,
     ramal: { type: String, unique: true },
 })
 

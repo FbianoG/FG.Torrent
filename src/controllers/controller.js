@@ -1,10 +1,10 @@
 const { get } = require("mongoose");
 const { Planos, Ramais } = require("../models/model")
 
-async function createId() {
+async function createId(e) {
     for (let i = 1; i < 9999; i++) {
         try {
-            let findId = await Planos.findOne({ id: i })
+            let findId = await e.findOne({ id: i })
             if (!findId) {
                 return i
             }
@@ -23,7 +23,7 @@ function newDate() {
 }
 
 async function createPlan(req, res) {
-    let id = await createId()
+    let id = await createId(Planos)
     let create = new Date()
     let update = create
     let active = true
@@ -40,23 +40,24 @@ async function createPlan(req, res) {
 }
 
 async function createRamal(req, res) {
+    let id = await createId(Ramais)
     try {
-        let { setor, posto, ramal } = req.body
-        if (setor && posto && ramal) {
+        let { setor, ramal } = req.body
+        if (setor && ramal) {
             setor = setor.toLowerCase()
-            posto = posto.toLowerCase()
             const createRamal = await Ramais.create({
-                setor: setor,
-                posto: posto,
-                ramal: ramal
+                id,
+                setor,
+                ramal,
             })
-            console.log('Ramal incluido com sucesso');
-            res.status(201).redirect('/home.html')
+            console.log('Ramal criado com sucesso!');
+            res.status(201).redirect('/config.html')
         } else {
-            console.log('Os campos não foram preenchidos');
+            console.log('Preencha todos os campos!');
         }
     } catch (error) {
-        res.status(500).send({ message: error })
+        console.log({message: error});
+        res.status(500).json({ message: error })
     }
 }
 
@@ -106,31 +107,45 @@ async function updatePlan(req, res) {  // Atualiza planos no DataBase
         let { id, nome, login, password, web, cod, tel, email, att, guia, senha, obs } = req.body
         nome = nome.toLowerCase()
         let PlanUpdate = await Planos.findOneAndUpdate({ id: id }, {
-            nome: nome,
-            login: login,
-            password: password,
-            web: web,
+            nome,
+            login,
+            password,
+            web,
             data: {
-                cod: cod,
-                tel: tel,
-                email: email,
-                att: att,
-                guia: guia,
-                senha: senha,
-                obs: obs,
+                cod,
+                tel,
+                email,
+                att,
+                guia,
+                senha,
+                obs,
             },
             update,
             active: activeStatus,
-        },
-            {
-                new: true
-            })
+        }, { new: true })
         console.log({ message: "O plano foi ataualizado com sucesso:", PlanUpdate })
         res.status(204).redirect('/config.html')
     }
     catch (error) {
         console.log(error);
         res.status(500).json({ message: 'Erro ao atualizar o plano' });
+    }
+}
+
+async function updateBranche(req, res) {
+
+    try {
+        let { id, setor, ramal } = req.body
+        setor = setor.toLowerCase()
+        let brancheUpdate = await Ramais.findOneAndUpdate({ id: id }, {
+            setor,
+            ramal,
+        }, { new: true })
+        console.log(brancheUpdate);
+        res.status(201).redirect("/config.html")
+    }
+    catch (error) {
+        res.status(500).json({ message: "Erro ao atualizar os dados! ", error })
     }
 }
 
@@ -143,4 +158,5 @@ module.exports = {
     updatePlan,
     getRamais,
     getData,
+    updateBranche
 }

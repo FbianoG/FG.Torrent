@@ -37,7 +37,7 @@
 }
 
 .list-ramais {
-    width: 700px;
+    width: 900px;
     max-height: 80vh;
     background: #fbfbfb;
     border: 1px solid #e1e6ee;
@@ -56,23 +56,18 @@
     color: #5382b9;
     font-weight: 500;
     padding: 0 15px;
+    gap: 20px;
 }
 
 .legends-setor,
 .card-setor {
-    width: 50%;
+    width: 60%;
 }
 
-.legends-posto,
-.card-posto {
-    width: 25%;
-    text-align: center;
-    text-transform: capitalize;
-}
 
 .legends-ramal,
 .card-ramal {
-    width: 25%;
+    width: 40%;
     text-align: center;
 }
 
@@ -82,14 +77,16 @@
 
 .card {
     list-style: none;
-    height: 45px;
+    min-height: 45px;
+    height: auto;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #eee;
     color: #505050;
     font-weight: 500;
     text-transform: capitalize;
-    padding: 0 15px;
+    padding: 10px 15px;
+    gap: 15px;
 }
 
 .card:hover {

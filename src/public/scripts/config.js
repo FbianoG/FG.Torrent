@@ -1,47 +1,114 @@
+// Variáveis
+
+let containerList = document.querySelectorAll('.containerList')[0]
 let cardPlans = document.querySelectorAll('.cardPlans')[0]
 let cardDocs = document.querySelectorAll('.cardDocs')[0]
 let cardRamais = document.querySelectorAll('.cardRamais')[0]
 let list = document.querySelectorAll('.list')[0]
+let legends = document.querySelectorAll(".legends")[0]
 
 
-cardPlans.addEventListener('click', getData)
-cardDocs.addEventListener('click', getData)
-cardRamais.addEventListener('click', getData)
 
 
-// getData()
+// Eventos
+
+cardPlans.addEventListener('click', getDataPlans)
+cardDocs.addEventListener('click', getDataDocs)
+cardRamais.addEventListener('click', getDataRamais)
 
 
-async function getData() {
-    let inf = this.querySelectorAll('h2')[0].textContent
+
+
+// Funções
+
+async function getDataPlans() { // Faz requisição dos "Planos" ao "DataBase"
     try {
-        const api = await fetch(`/getData?inf=${inf}`)
+        editLegends('Planos')
+        createLoad() // Cria elemento animado de "loading"
+        const api = await fetch(`/getData?inf=Planos`)
         const data = await api.json()
-        getList(data)
+        createListPlans(data) // Cria a lista de acordo com os dados vindo do "DataBase"
     } catch (error) {
         console.error({ menssage: "Um erro foi encontrado: ", error })
     }
 }
 
-function getList(e) {
-    console.log(e);
+async function getDataDocs() { // Faz requisição dos "Documentos" ao "DataBase"
+    let data
+    try {
+        editLegends('Documentos')
+        createLoad() // Cria elemento animado de "loading"
+        const api = await fetch(`/getData?inf=`)
+        data = await api.json()
+    }
+
+    catch (error) {
+        console.error({ menssage: "Um erro foi encontrado: ", error })
+    }
+    getList(data) // Cria a lista de acordo com os dados vindo do "DataBase"
+}
+
+async function getDataRamais() { // Faz requisição dos "Ramais" ao "DataBase"
+    try {
+        editLegends('Ramais')
+        createLoad() // Cria elemento animado de "loading"
+        const api = await fetch(`/ramais`)
+        const data = await api.json()
+        console.log(data);
+        createListRamais(data) // Cria a lista de acordo com os dados vindo do "DataBase"
+    } catch (error) {
+        console.error({ menssage: "Um erro foi encontrado: ", error })
+    }
+}
+
+function createListPlans(e) { // Cria a lista de "Planos" com os dados vindo do "DataBase"
     list.innerHTML = ""
+    // newFormCreate()
     e.forEach(element => {
         let newCardPlan = document.createElement('li')
         newCardPlan.classList = 'card'
-        newCardPlan.innerHTML = newCardPlanHtml(element)
+        newCardPlan.innerHTML = newCardPlanHtml(element) // Cria o HTML do "plano" com os dados do DataBase
         list.appendChild(newCardPlan)
-
-        verificStatus(newCardPlan)
+        verificStatus(newCardPlan) // Verifica se o "Status" do elemento está ativo
     });
-    createEvent()
+    createEvent() // Cria eventos dos "Buttons" dos cards
+}
+
+function createListRamais(e) { // Cria a lista de "Ramais" com os dados vindo do "DataBase"
+    list.innerHTML = ""
+    newFormCreate()
+    e.forEach(element => {
+        let newCardPlan = document.createElement('li')
+        newCardPlan.classList = 'card'
+        newCardPlan.innerHTML = NewCardRamalHtml(element) // Cria o HTML do "Ramal" com os dados do DataBase
+        list.appendChild(newCardPlan)
+    });
+    createEvent() // Cria eventos dos "Buttons" dos cards
 }
 
 
 
-function verificStatus(e) {
-    let spanStatus = e.querySelectorAll(".spanStatus")[0]
 
+
+
+function newFormCreate() {
+    let newForm = document.createElement('div')
+    newForm.innerHTML = `
+        <form action="/createRamal" method="post">
+            <input type="text" name="setor" placeholder="Setor">
+            <input type="text" name="ramal" placeholder="Ramal">
+            <input type="submit" value="Criar">
+        </form>
+    `
+    list.appendChild(newForm)
+}
+
+
+
+
+
+function verificStatus(e) { // Verifica se o "Status" do elemento está ativo
+    let spanStatus = e.querySelectorAll(".spanStatus")[0]
     if (spanStatus.parentElement.textContent == "true") {
         spanStatus.style.background = "#75e06a"
     } else {
@@ -49,7 +116,7 @@ function verificStatus(e) {
     }
 }
 
-function createEvent() {
+function createEvent() { // Cria eventos dos "Buttons" dos cards
     let btnExtend = document.querySelectorAll('.btnExtend')
     let btnEdit = document.querySelectorAll('.btnEdit')
     btnExtend.forEach(element => {
@@ -78,7 +145,7 @@ function newCardPlanHtml(e) { // Cria o HTML do "plano" com os dados do DataBase
     const html = `
         <p>${e.nome}</p>
         <p>${e.create.slice(0, 10).split('-').reverse().join('/')}</p>
-        <p>${e.create.slice(0, 10).split('-').reverse().join('/')}</p>
+        <p>${e.update.slice(0, 10).split('-').reverse().join('/')}</p>
         <p>${e.login}</p>
         <p>${e.password}@2020</p>
         <p><span class="spanStatus"></span>${e.active}</p>
@@ -86,7 +153,7 @@ function newCardPlanHtml(e) { // Cria o HTML do "plano" com os dados do DataBase
         <form action="/updatePlan" id="formEdit" method="post">
             <input type="text" name="id" disabled value="${e.id}" style="display: none">
             <label for="">Nome:</label>
-            <input type="text" name="nome" disabled value="${e.nome}">
+            <input type="text" name="nome" id="nome" disabled value="${e.nome}">
             <label for="">WebSite:</label>
             <input type="text" name="web" disabled value="${e.web}">
             <label for="">Usuário:</label>
@@ -108,14 +175,33 @@ function newCardPlanHtml(e) { // Cria o HTML do "plano" com os dados do DataBase
             <label for="">Observação:</label>
             <textarea name="obs" disabled >${e.data.obs}</textarea>
             <div class="dataBtn">
+                <label for="">Inativo / Ativo:</label>
                 <input type="range" name="active" min="0" max="1" value="${e.active == true ? 1 : 0}" disabled>
-
-                    <input type="button" value="Editar" class="btnEdit">
-                    <input type="submit" value="Update">
-                    <input type="submit" value="Cancelar" class="btnStatus">
+                <button type="button" value="Editar" class="btnEdit">Editar</button>
+                <button type="submit" value="Update">Update</button>
             </div>
         </form>
     `
+    return html
+}
+
+function NewCardRamalHtml(e) {
+    const html = `
+    <p>${e.setor}</p>
+    <p>${e.ramal}</p>
+    <button class="btnExtend"><i class="fa-solid fa-caret-down"></i></button>
+    <form action="/updateBranche" id="formEdit" method="post">
+        <input type="text" name="id" disabled value="${e.id}" style="display: none">
+        <label for="">Setor:</label>
+        <input type="text" name="setor" id="nome" disabled value="${e.setor}">
+        <label for="">Ramal:</label>
+        <input type="text" name="ramal" disabled value="${e.ramal}">
+        <div class="dataBtn">
+            <button type="button" value="Editar" class="btnEdit">Editar</button>
+            <button type="submit" value="Update">Update</button>
+        </div>
+    </form>
+`
     return html
 }
 
@@ -128,3 +214,41 @@ function editable() { // Transforma os "inputs" em editáveis
     });
     textArea.removeAttribute("disabled")
 }
+
+function createLoad() { // Cria elemento animado de "loading"
+    list.innerHTML = ''
+    let load = document.createElement('div')
+    load.classList = "loading"
+    load.innerHTML = `
+    <div div div class="circle" >
+    </div><p>Buscando...</p>
+    `
+    list.appendChild(load)
+}
+
+
+function editLegends(e) {
+    if (e == "Ramais") {
+        legends.innerHTML = `
+            <label>Setor</label>
+            <label>Ramal</label>`
+    } else if (e == "Documentos") {
+        legends.innerHTML = `
+            <label>Documento</label>
+            <label>Arquivo</label>`
+    } else {
+        legends.innerHTML = `
+            <label>Plano</label>
+            <label>Criado em</label>
+            <label>Atualizado em</label>
+            <label>Usuário</label>
+            <label>Senha</label>
+            <label>Status</label>`
+    }
+}
+
+
+
+// Chamadas 
+
+getDataPlans()

@@ -21,7 +21,7 @@ searchInput.addEventListener('keyup', filterForSetor) // Pesquisar "setor" pelo 
 
 async function getRamais() { // Pegar dados vindo do DataBase 
     try {
-        const getRamais = await fetch('/fiand-ramais')
+        const getRamais = await fetch('/ramais')
         const Data = await getRamais.json() 
         if (Data.length > 0) {
             ramais = Data
@@ -48,7 +48,6 @@ function gerar(e) {
 function cardRamalHtml(e) { // cria o "HTML" do "ramal"
     const html = `
     <p class="card-setor">${e.setor}</p>
-    <p class="card-posto">${e.posto}</p>
     <p class="card-ramal">${e.ramal}</p>`
     return html
 }
