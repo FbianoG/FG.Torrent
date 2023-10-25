@@ -1,6 +1,6 @@
 {
   "name": "FG.Torrent",
-  "version": "3.0.0",
+  "version": "3.10.5",
   "description": "",
   "main": "server.js",
   "scripts": {
