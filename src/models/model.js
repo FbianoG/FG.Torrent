@@ -24,6 +24,8 @@ const Ramais = mongoose.model('ramais', {
     id: {type: Number, unique: true},
     setor: String,
     ramal: { type: String, unique: true },
+    create: Date,
+    update: Date,
 })
 
 module.exports = {

@@ -43,12 +43,16 @@ async function createRamal(req, res) {
     let id = await createId(Ramais)
     try {
         let { setor, ramal } = req.body
+        let create = new Date()
+        let update = create
         if (setor && ramal) {
             setor = setor.toLowerCase()
             const createRamal = await Ramais.create({
                 id,
                 setor,
                 ramal,
+                create,
+                update,
             })
             console.log('Ramal criado com sucesso!');
             res.status(201).redirect('/config.html')
@@ -136,10 +140,12 @@ async function updateBranche(req, res) {
 
     try {
         let { id, setor, ramal } = req.body
+        let update = new Date()
         setor = setor.toLowerCase()
         let brancheUpdate = await Ramais.findOneAndUpdate({ id: id }, {
             setor,
             ramal,
+            update,
         }, { new: true })
         console.log(brancheUpdate);
         res.status(201).redirect("/config.html")
