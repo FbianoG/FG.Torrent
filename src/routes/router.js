@@ -6,7 +6,7 @@ router.post('/createPlan', control.createPlan)
 router.post('/createRamal', control.createRamal)
 
 //GET
-router.get('/index', control.getPlans) // 
+router.get('/index', control.getPlans)
 router.get('/ramais', control.getRamais)
 
 //GET => config.html

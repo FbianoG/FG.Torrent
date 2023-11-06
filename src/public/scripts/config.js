@@ -1,7 +1,5 @@
 // Variáveis
 
-
-
 let containerList = document.querySelectorAll(".containerList")[0];
 let cardPlans = document.querySelectorAll(".cardPlans")[0];
 let cardDocs = document.querySelectorAll(".cardDocs")[0];
@@ -13,11 +11,7 @@ let formCreate = document.querySelectorAll('.formCreate')[0]
 
 
 
-
-
 // Eventos
-
-
 
 cardPlans.addEventListener("click", getDataPlans);
 cardDocs.addEventListener("click", getDataDocs);
@@ -26,14 +20,7 @@ cardRamais.addEventListener("click", getDataRamais);
 
 
 
-
-
-
-
-
 // Funções
-
-
 
 async function getDataPlans() { // Faz requisição dos "Planos" ao "DataBase"
 	// try {
@@ -46,8 +33,6 @@ async function getDataPlans() { // Faz requisição dos "Planos" ao "DataBase"
 	// 	console.error({ menssage: "Um erro foi encontrado: ", error });
 	// }
 }
-
-
 
 async function getDataDocs() { // Faz requisição dos "Documentos" ao "DataBase"
 	let data;
@@ -63,8 +48,6 @@ async function getDataDocs() { // Faz requisição dos "Documentos" ao "DataBase
 	getList(data); // Cria a lista de acordo com os dados vindo do "DataBase"
 }
 
-
-
 async function getDataRamais() { // Faz requisição dos "Ramais" ao "DataBase"
 	try {
 		editLegends("Ramais");
@@ -77,8 +60,6 @@ async function getDataRamais() { // Faz requisição dos "Ramais" ao "DataBase"
 		console.error({ menssage: "Um erro foi encontrado: ", error });
 	}
 }
-
-
 
 function createListPlans(e) { // Cria a lista de "Planos" com os dados vindo do "DataBase"
 	list.innerHTML = ""
@@ -93,8 +74,6 @@ function createListPlans(e) { // Cria a lista de "Planos" com os dados vindo do 
 	createEvent(); // Cria eventos dos "Buttons" dos cards
 }
 
-
-
 function createListRamais(e) { // Cria a lista de "Ramais" com os dados vindo do "DataBase"
 	list.innerHTML = ""
 	newFormCreateRamal()
@@ -107,13 +86,13 @@ function createListRamais(e) { // Cria a lista de "Ramais" com os dados vindo do
 	createEvent(); // Cria eventos dos "Buttons" dos cards
 }
 
-function newFormCreateRamal() { // Cria formulário para inclusão de um novo Ramal
+function newFormCreateRamal() { // Cria formulário para inclusão de um novo "Ramal"
 	formCreate.innerHTML = `
 		<label>Criar Ramal</label>
         <form action="/createRamal" method="post">
             <input type="text" name="setor" placeholder="Setor">
             <input type="text" name="ramal" placeholder="Ramal">
-            <input type="submit" value="Criar">
+            <button type="submit">Criar</button>
         </form>`
 }
 
@@ -121,10 +100,10 @@ function newFormCreatePlans() { // Cria formulário para inclusão de um novo Pl
 	formCreate.innerHTML = `
 	<label>Criar Plano</label>
 	<form action="/createPlan" method="post">
-		<input type="text" name="nome" placeholder="Nome">
+		<input type="text" name="nome" placeholder="Nome" required>
 		<input type="text" name="login" placeholder="Login">
 		<input type="text" name="password" placeholder="Senha">
-		<input type="submit" value="Criar">
+		<button type="submit">Criar</button>
 	</form>`
 }
 
@@ -148,8 +127,6 @@ function createEvent() { // Cria eventos dos "Buttons" dos cards
 	})
 }
 
-
-
 function extendCard(e) { // Expande o card ao clicar no button
 	let card = this.parentElement
 	let btnIcon = this.querySelectorAll(".fa-solid")[0]
@@ -162,8 +139,6 @@ function extendCard(e) { // Expande o card ao clicar no button
 		card.style.maxHeight = "165px"
 	}
 }
-
-
 
 function newCardPlanHtml(e) { // Cria o HTML do "plano" com os dados do DataBase
 	const html = `
@@ -209,8 +184,6 @@ function newCardPlanHtml(e) { // Cria o HTML do "plano" com os dados do DataBase
 	return html;
 }
 
-
-
 function NewCardRamalHtml(e) { // Cria o HTML do "ramal" com os dados do DataBase
 	const html = `
     <p>${e.setor}</p>
@@ -233,8 +206,6 @@ function NewCardRamalHtml(e) { // Cria o HTML do "ramal" com os dados do DataBas
 	return html
 }
 
-
-
 function editable() { // Transforma os "inputs" em editáveis
 	let card = this.parentElement.parentElement
 	let input = card.querySelectorAll("input")
@@ -244,8 +215,6 @@ function editable() { // Transforma os "inputs" em editáveis
 	});
 	textArea.removeAttribute("disabled")
 }
-
-
 
 function createLoad() { // Cria elemento animado de "loading"
 	list.innerHTML = ""
@@ -257,10 +226,6 @@ function createLoad() { // Cria elemento animado de "loading"
     `
 	list.appendChild(load)
 }
-
-
-
-
 
 function editLegends(e) { // Muda legenda da lista de acordo com filtro selecinado
 	if (e == "Ramais") {
@@ -288,11 +253,6 @@ function editLegends(e) { // Muda legenda da lista de acordo com filtro selecina
 
 
 
-
-
-
 // Chamadas 
-
-
 
 getDataPlans();

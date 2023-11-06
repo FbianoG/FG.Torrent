@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
 const Planos = mongoose.model('planos', {
-    id: { type: Number, unique: true },
-    nome: { type: String, unique: true },
+    id: { type: Number, unique: true, required: true },
+    nome: { type: String, unique: true, required: true },
     login: String,
     password: String,
     web: String,
@@ -22,7 +22,7 @@ const Planos = mongoose.model('planos', {
 
 const Ramais = mongoose.model('ramais', {
     id: {type: Number, unique: true},
-    setor: String,
+    setor: { type: String, unique: true },
     ramal: { type: String, unique: true },
     create: Date,
     update: Date,

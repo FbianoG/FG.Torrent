@@ -1,7 +1,11 @@
-const { get } = require("mongoose");
 const { Planos, Ramais } = require("../models/model")
 
-async function createId(e) {
+
+
+
+// Funções
+
+async function createId(e) { // Function para crianção de um ID presonalizado
     for (let i = 1; i < 9999; i++) {
         try {
             let findId = await e.findOne({ id: i })
@@ -14,7 +18,7 @@ async function createId(e) {
     }
 }
 
-function newDate() {
+function newDate() { // Função para criar uma nova data
     let Data = new Date()
     let day = Data.getDate()
     let months = Data.getMonth() + 1
@@ -22,13 +26,21 @@ function newDate() {
     return `${day}/${months}/${year}`
 }
 
-async function createPlan(req, res) {
+
+
+
+// Controllers
+
+async function createPlan(req, res) { // Cria plano de saúde 
     let id = await createId(Planos)
     let create = new Date()
     let update = create
     let active = false
     let { nome, login, password } = req.body
     nome = nome.toLowerCase()
+    if (!nome) {
+        return console.log("É necessário preencher o 'nome'!");
+    }
     try {
         await Planos.create({ id, create, active, nome, login, password, update, web: "", data: { cod: "", tel: "", email: "", att: "", guia: "", senha: "", obs: "" } })
         console.log('Plano incluido com sucesso');
@@ -39,7 +51,7 @@ async function createPlan(req, res) {
     }
 }
 
-async function createRamal(req, res) {
+async function createRamal(req, res) { // Cria ramal
     let id = await createId(Ramais)
     try {
         let { setor, ramal } = req.body
@@ -65,7 +77,7 @@ async function createRamal(req, res) {
     }
 }
 
-async function getRamais(req, res) {
+async function getRamais(req, res) { // Busca todos os "Ramais" mo DataBase
     try {
         let ramais = await Ramais.find({})
         res.json(ramais)
@@ -85,9 +97,7 @@ async function getPlans(req, res) {  // Busca todos os "planos" mo DataBase
     }
 }
 
-
-
-async function getData(req, res) {
+async function getData(req, res) { // Busaca todos os "Planos", "Ramais" para configuração
     let inf = req.query.inf
     if (inf == "Planos") {
         const getData = await Planos.find({})
@@ -98,8 +108,7 @@ async function getData(req, res) {
     }
 }
 
-
-async function updatePlan(req, res) {  // Atualiza planos no DataBase
+async function updatePlan(req, res) {  // Atualiza "Planos" no DataBase
     try {
         let activeStatus = req.body.active
         if (activeStatus == "0") {
@@ -136,7 +145,7 @@ async function updatePlan(req, res) {  // Atualiza planos no DataBase
     }
 }
 
-async function updateBranche(req, res) {
+async function updateBranche(req, res) { // Atualiza "Ramais" no DataBase
 
     try {
         let { id, setor, ramal } = req.body
@@ -154,6 +163,7 @@ async function updateBranche(req, res) {
         res.status(500).json({ message: "Erro ao atualizar os dados! ", error })
     }
 }
+
 
 
 
