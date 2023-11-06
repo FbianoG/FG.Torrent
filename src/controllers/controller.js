@@ -26,11 +26,11 @@ async function createPlan(req, res) {
     let id = await createId(Planos)
     let create = new Date()
     let update = create
-    let active = true
-    let { nome, login, password, web, cod, tel, email, att, guia, senha, obs } = req.body
+    let active = false
+    let { nome, login, password } = req.body
     nome = nome.toLowerCase()
     try {
-        await Planos.create({ id, create, update, active, nome, login, password, web, data: { cod, tel, email, att, guia, senha, obs } })
+        await Planos.create({ id, create, active, nome, login, password, update, web: "", data: { cod: "", tel: "", email: "", att: "", guia: "", senha: "", obs: "" } })
         console.log('Plano incluido com sucesso');
         res.status(201).redirect('/config.html')
     }
@@ -60,7 +60,7 @@ async function createRamal(req, res) {
             console.log('Preencha todos os campos!');
         }
     } catch (error) {
-        console.log({message: error});
+        console.log({ message: error });
         res.status(500).json({ message: error })
     }
 }

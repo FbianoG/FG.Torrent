@@ -49,11 +49,14 @@ function loadAll() {
     // Funções
 
     function createCardPlan(planos) { // Cria e gera os "cards dos planos"
-        let listOrdened = planos.sort((a,b)=>{ // Ordenar "planos"
+        let listOrdened = planos.sort((a, b) => { // Ordenar "planos"
             return a.nome.localeCompare(b.nome)
         })
         list.innerHTML = ''
         listOrdened.forEach(element => {
+            if (element.active == false) {
+                return
+            }
             let newCardPlan = document.createElement('div') // Cria o HTML dos "cards dos planos"
             newCardPlan.className = 'card'
             newCardPlan.innerHTML = createCardHtml(element)
