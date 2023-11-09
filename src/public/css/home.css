@@ -1,0 +1,141 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: #fdfdfd;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.content {
+    background: #5382b9;
+    width: 70%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.contentText {
+    margin: 100px 0 0 0 ;
+    width: 50%;
+    color: #fdfdfd;
+}
+
+.contentText h1 {
+    font-size: 50px;
+    font-weight: 500;
+}
+.contentText h3 {
+    color: #fdfdfd;
+    font-weight: normal;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+.contentText p {
+color: #fdfdfd;
+}
+
+.content img {
+    width: 40%;
+}
+
+.contentFooter {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fdfdfd;
+    font-size: 13px;
+    align-self: flex-end;
+}
+.containerForm {
+    width: 30%;
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.containerForm h1 {
+    text-align: center;
+    color: #5382b9;
+}
+
+.containerForm p {
+    text-align: center;
+    color: #999;
+    margin: -5px 0 100px;
+    font-size: 13px;
+}
+
+.containerForm form {
+    display: flex;
+    flex-direction: column;
+}
+
+.containerForm form input{
+    min-width: 250px;
+    height: 30px;
+    padding: 0px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    color: #666;
+    font-size: 15px;
+}
+.containerForm form input:focus{
+    border-color: #19acff;
+}
+
+.containerForm form label{
+    font-size: 14px;
+    color: #888;
+    background: #fdfdfd;
+    width: fit-content;
+    padding: 0px 5px;
+    position: relative;
+    left: 7px;
+    top: 7px;
+}
+
+
+.containerForm form button{
+    height: 30px;
+    background: #5382b9;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px #0000;
+    color: #fdfdfd;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: 300ms;
+}
+.containerForm form button:hover{
+
+    background: #fdfdfd;
+    color: #7a8ea7;
+    box-shadow: 3px 3px 5px #0003;
+}
+
+.containerForm form span{
+    font-size: 14px;
+    color: #777;
+    text-align: right;
+    margin: 10px 0;
+}
