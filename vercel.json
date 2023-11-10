@@ -1,9 +1,9 @@
 {
- "version": 2,
+ "version": 3,
  "name": "fg-torrent",
  "builds": [
     {
-      "src": "node server.js",
+      "src": "/(.*)",
       "use": "@vercel/node"
     }
  ],
