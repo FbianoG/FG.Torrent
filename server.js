@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./src/public'))
 app.use(express.json())
 app.use(routes)
+app.get('/', (req, res) => res.sendFile(__dirname + '/src/public/html/index.html'))
 
 db.connectDataBase()
 

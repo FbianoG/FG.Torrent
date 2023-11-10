@@ -1,9 +1,28 @@
 let planos = []
 
+const urlParams = new URLSearchParams(window.location.search);
+let token = urlParams.get('id');
+
+
+
+
+const jwtLinks = document.querySelectorAll('nav a');
+jwtLinks.forEach(link => {
+    link.addEventListener('click', function (event) {
+        event.preventDefault(); 
+        const originalHref = this.getAttribute('href');
+        const url = originalHref + `?id=${token}`;
+        window.location.href = url;
+    });
+});
 
 async function getPlansDataBase() { // pega os dados dos planos do "DataBase"
+    if (!token) {
+            window.location = '/'
+    }
     try {
-        let api = await fetch('/index')
+        localStorage.setItem("AuthToken", token)
+        let api = await fetch(`/getPlans?id=${token}`)
         let dados = await api.json()
         if (dados) {
             dados.forEach(element => {
@@ -14,7 +33,7 @@ async function getPlansDataBase() { // pega os dados dos planos do "DataBase"
             console.log("Nenhum dado foi encontrado");
         }
     } catch (error) {
-        console.log("Um erro encontrado: ", error);
+        window.location = '/'
     }
 }
 

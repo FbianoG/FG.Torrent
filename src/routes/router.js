@@ -1,13 +1,31 @@
 const router = require('express').Router()
 const control = require('../controllers/controller')
+const mid = require('../controllers/middlewares')
 
 //POST
 router.post('/createPlan', control.createPlan)
 router.post('/createRamal', control.createRamal)
 
+router.post('/login', control.login)
+
 //GET
-router.get('/index', control.getPlans)
-router.get('/ramais', control.getRamais)
+
+
+//Busca de dados DataBase
+router.get('/getPlans', mid.verifyToken, control.getPlans)
+// router.get('/getTermos', mid.verifyToken, control.findById)
+router.get('/getBranches', mid.verifyToken, control.getBranches)
+// router.get('/getSites', mid.verifyToken, control.findById)
+
+//Paginas html
+router.get('/planos', mid.verifyToken, control.planos)
+router.get('/termos', mid.verifyToken, control.termos)
+router.get('/guias', mid.verifyToken, control.guias)
+router.get('/cadastro', mid.verifyToken, control.cadastro)
+router.get('/etiqueta', mid.verifyToken, control.etiqueta)
+router.get('/ramais', mid.verifyToken, control.ramais)
+router.get('/sites', mid.verifyToken, control.sites)
+router.get('/config', mid.verifyToken, control.config)
 
 //GET => config.html
 router.get('/getData', control.getData)

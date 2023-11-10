@@ -5,6 +5,21 @@ let title = document.querySelectorAll("h2")[0];
 let ramais = [];
 
 
+const urlParams = new URLSearchParams(window.location.search);
+let token = urlParams.get('id');
+
+
+
+
+const jwtLinks = document.querySelectorAll('nav a');
+jwtLinks.forEach(link => {
+    link.addEventListener('click', function (event) {
+        event.preventDefault(); 
+        const originalHref = this.getAttribute('href');
+        const url = originalHref + `?id=${token}`;
+        window.location.href = url;
+    });
+});
 
 
 // Eventos //
@@ -21,7 +36,7 @@ searchInput.addEventListener("keyup", filterForSetor); // Pesquisar "setor" pelo
 
 async function getRamais() { // Pegar dados vindo do DataBase 
 	try {
-		const getRamais = await fetch("/ramais");
+		const getRamais = await fetch(`/getBranches?id=${token}`);
 		const Data = await getRamais.json();
 		if (Data.length > 0) {
 			ramais = Data;

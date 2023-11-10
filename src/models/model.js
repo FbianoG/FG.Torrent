@@ -28,7 +28,13 @@ const Ramais = mongoose.model('ramais', {
     update: Date,
 })
 
+const User = mongoose.model("user", {
+    user: String,
+    password: String
+})
+
 module.exports = {
     Planos,
-    Ramais
+    Ramais,
+    User
 }

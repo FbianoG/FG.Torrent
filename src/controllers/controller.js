@@ -1,5 +1,6 @@
-const { Planos, Ramais } = require("../models/model")
-
+const { Planos, Ramais, User } = require("../models/model")
+const path = require('path')
+const mid = require('./middlewares')
 
 
 
@@ -77,7 +78,7 @@ async function createRamal(req, res) { // Cria ramal
     }
 }
 
-async function getRamais(req, res) { // Busca todos os "Ramais" mo DataBase
+async function getBranches(req, res) { // Busca todos os "Ramais" mo DataBase
     try {
         let ramais = await Ramais.find({})
         res.json(ramais)
@@ -110,6 +111,7 @@ async function getData(req, res) { // Busaca todos os "Planos", "Ramais" para co
 
 async function updatePlan(req, res) {  // Atualiza "Planos" no DataBase
     try {
+        const token = req.query.id
         let activeStatus = req.body.active
         if (activeStatus == "0") {
             activeStatus = false
@@ -136,12 +138,11 @@ async function updatePlan(req, res) {  // Atualiza "Planos" no DataBase
             update,
             active: activeStatus,
         }, { new: true })
-        console.log({ message: "O plano foi ataualizado com sucesso:", PlanUpdate })
-        res.status(204).redirect('/config.html')
+        res.status(204).redirect(`/config?id=${token}`)
     }
     catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'Erro ao atualizar o plano' });
+        res.status(500).json({ message: 'Ocorreu algum erro ao atualizar o plano!' });
     }
 }
 
@@ -164,6 +165,42 @@ async function updateBranche(req, res) { // Atualiza "Ramais" no DataBase
     }
 }
 
+async function login(req, res) { // Validação de usuário e senha ao acessar a Aplicação
+    let { user, password } = req.body
+    let UserFind = await User.findOne({ user, password })
+    if (!UserFind) {
+       return res.status(404).json({ message: "Usuário ou senha incorretos!" })
+    }
+    const token = await mid.createToken(UserFind)
+    res.status(200).redirect(`/planos?id=${token}`)
+}
+
+//Acessar html
+async function planos(req, res) {
+    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "planos.html"))
+}
+async function termos(req, res) {
+    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "termos.html"))
+}
+async function guias(req, res) {
+    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "guias.html"))
+}
+async function cadastro(req, res) {
+    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "cadastro.html"))
+}
+async function etiqueta(req, res) {
+    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "etiqueta.html"))
+}
+async function ramais(req, res) {
+    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "ramais.html"))
+}
+async function sites(req, res) {
+    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "sites.html"))
+}
+async function config(req, res) {
+    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "config.html"))
+}
+
 
 
 
@@ -172,7 +209,17 @@ module.exports = {
     createRamal,
     getPlans,
     updatePlan,
-    getRamais,
+    getBranches,
     getData,
-    updateBranche
+    updateBranche,
+    login,
+    planos,
+    termos,
+    guias,
+    cadastro,
+    etiqueta,
+    ramais,
+    sites,
+    config
+
 }

@@ -1,5 +1,4 @@
 // Variáveis
-
 let containerList = document.querySelectorAll(".containerList")[0];
 let cardPlans = document.querySelectorAll(".cardPlans")[0];
 let cardDocs = document.querySelectorAll(".cardDocs")[0];
@@ -9,6 +8,21 @@ let legends = document.querySelectorAll(".legends")[0];
 let formCreate = document.querySelectorAll('.formCreate')[0]
 
 
+const urlParams = new URLSearchParams(window.location.search);
+let token = urlParams.get('id');
+
+
+
+
+const jwtLinks = document.querySelectorAll('nav a');
+jwtLinks.forEach(link => {
+	link.addEventListener('click', function (event) {
+		event.preventDefault();
+		const originalHref = this.getAttribute('href');
+		const url = originalHref + `?id=${token}`;
+		window.location.href = url;
+	});
+});
 
 
 // Eventos
@@ -24,11 +38,11 @@ cardRamais.addEventListener("click", getDataRamais);
 
 async function getDataPlans() { // Faz requisição dos "Planos" ao "DataBase"
 	// try {
-		editLegends("Planos")
-		createLoad(); // Cria elemento animado de "loading"
-		const api = await fetch("/getData?inf=Planos")
-		const data = await api.json()
-		createListPlans(data); // Cria a lista de acordo com os dados vindo do "DataBase"
+	editLegends("Planos")
+	createLoad(); // Cria elemento animado de "loading"
+	const api = await fetch(`/getPlans?id=${token}`)
+	const data = await api.json()
+	createListPlans(data); // Cria a lista de acordo com os dados vindo do "DataBase"
 	// } catch (error) {
 	// 	console.error({ menssage: "Um erro foi encontrado: ", error });
 	// }
@@ -52,7 +66,7 @@ async function getDataRamais() { // Faz requisição dos "Ramais" ao "DataBase"
 	try {
 		editLegends("Ramais");
 		createLoad(); // Cria elemento animado de "loading"
-		const api = await fetch("/ramais");
+		const api = await fetch(`/getBranches?id=${token}`);
 		const data = await api.json();
 		console.log(data);
 		createListRamais(data); // Cria a lista de acordo com os dados vindo do "DataBase"
@@ -149,7 +163,7 @@ function newCardPlanHtml(e) { // Cria o HTML do "plano" com os dados do DataBase
         <p>${e.password}@2020</p>
         <p><span class="spanStatus"></span>${e.active}</p>
         <button class="btnExtend"><i class="fa-solid fa-caret-down"></i></button>
-        <form action="/updatePlan" id="formEdit" method="post">
+        <form action="/updatePlan?id=${token}" id="formEdit" method="post">
             <input type="text" name="id" disabled value="${e.id}" style="display: none">
             <label for="">Nome:</label>
             <input type="text" name="nome" id="nome" disabled value="${e.nome}">
@@ -191,7 +205,7 @@ function NewCardRamalHtml(e) { // Cria o HTML do "ramal" com os dados do DataBas
     <p>${e.create.slice(0, 10).split("-").reverse().join("/")}</p>
     <p>${e.update.slice(0, 10).split("-").reverse().join("/")}</p>
     <button class="btnExtend"><i class="fa-solid fa-caret-down"></i></button>
-    <form action="/updateBranche" id="formEdit" method="post">
+    <form action="/updateBranche?id=${token}" id="formEdit" method="post">
         <input type="text" name="id" disabled value="${e.id}" style="display: none">
         <label for="">Setor:</label>
         <input type="text" name="setor" id="nome" disabled value="${e.setor}">
@@ -210,10 +224,19 @@ function editable() { // Transforma os "inputs" em editáveis
 	let card = this.parentElement.parentElement
 	let input = card.querySelectorAll("input")
 	let textArea = card.querySelectorAll("textArea")[0]
-	input.forEach(element => {
-		element.removeAttribute("disabled")
-	});
-	textArea.removeAttribute("disabled")
+	if (this.textContent == "Editar") {
+		this.textContent = "Cancelar"
+		input.forEach(element => {
+			element.removeAttribute("disabled")
+		});
+		textArea.removeAttribute("disabled")
+	} else {
+		this.textContent = "Editar"
+		input.forEach(element => {
+			element.setAttribute("disabled", true)
+		});
+		textArea.setAttribute("disabled", true)
+	}
 }
 
 function createLoad() { // Cria elemento animado de "loading"

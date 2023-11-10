@@ -3,9 +3,8 @@
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <link rel='stylesheet' href='./css/home.css'>
-    <script src='app.js' defer></script>
-    <title>Document</title>
+    <link rel='stylesheet' href='../css/home.css'>
+    <title>FG.Torrent</title>
 </head>
 <body>
     <main>
@@ -24,13 +23,13 @@
         <div class="containerForm">
             <h1>FG.Torrent</h1>
 
-            <form action="">
-                <label for="">Login</label>
-                <input type="text">
-                <label for="">Senha</label>
-                <input type="password">
+            <form action="/login" method="post">
+                <label for="user">Login</label>
+                <input type="text" name="user">
+                <label for="password">Senha</label>
+                <input type="password" name="password">
                 <span>Esqueceu a senha?</span>
-                <button>Acessar</button>
+                <button type="submit">Acessar</button>
                 <span>Registre-se conosco!</span>
             </form>
         </div>
