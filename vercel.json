@@ -1,9 +1,8 @@
 {
     "version": 2,
-    "name": "my-nodejs-app",
     "builds": [
         {
-            "src": "server.js",
+            "src": "package.json",
             "use": "@vercel/node"
         }
     ],
