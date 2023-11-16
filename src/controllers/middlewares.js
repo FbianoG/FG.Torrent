@@ -8,7 +8,6 @@ const secretKey = 'AplicationFGTorrent';
 
 async function verifyToken(req, res, next) {
     const token = req.query.id
-
     if (!token) {
         return res.status(401).json({ auth: false, message: 'É necessário fazer login para acessar esta página.' })
     }

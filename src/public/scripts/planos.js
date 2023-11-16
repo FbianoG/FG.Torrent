@@ -1,37 +1,29 @@
 let planos = []
 
-const urlParams = new URLSearchParams(window.location.search);
-let token = urlParams.get('id');
+const urlParams = new URLSearchParams(window.location.search)
+const token = urlParams.get('id');
 
 
 
 
-const jwtLinks = document.querySelectorAll('nav a');
+const jwtLinks = document.querySelectorAll('nav a')
 jwtLinks.forEach(link => {
     link.addEventListener('click', function (event) {
-        event.preventDefault(); 
-        const originalHref = this.getAttribute('href');
-        const url = originalHref + `?id=${token}`;
-        window.location.href = url;
-    });
-});
+        event.preventDefault()
+        const originalHref = this.getAttribute('href')
+        const url = originalHref + `?id=${token}`
+        window.location.href = url
+    })
+})
 
 async function getPlansDataBase() { // pega os dados dos planos do "DataBase"
-    if (!token) {
-            window.location = '/'
-    }
     try {
-        localStorage.setItem("AuthToken", token)
         let api = await fetch(`/getPlans?id=${token}`)
         let dados = await api.json()
-        if (dados) {
-            dados.forEach(element => {
-                planos.push(element)
-            })
-            loadAll()
-        } else {
-            console.log("Nenhum dado foi encontrado");
-        }
+        dados.forEach(element => {
+            planos.push(element)
+        })
+        loadAll()
     } catch (error) {
         window.location = '/'
     }

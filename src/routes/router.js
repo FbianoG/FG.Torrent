@@ -5,6 +5,7 @@ const mid = require('../controllers/middlewares')
 //POST
 router.post('/createPlan', control.createPlan)
 router.post('/createRamal', control.createRamal)
+router.post('/createDocs', control.createRamal)
 
 router.post('/login', control.login)
 
@@ -33,6 +34,14 @@ router.get('/getData', control.getData)
 //PUT
 router.post('/updatePlan', control.updatePlan) // Atualiza plano
 router.post('/updateBranche', control.updateBranche) // Atualiza ramal
+
+
+
+
+
+
+
+
 
 
 

@@ -33,6 +33,7 @@ function newDate() { // Função para criar uma nova data
 // Controllers
 
 async function createPlan(req, res) { // Cria plano de saúde 
+    const token = req.query.id
     let id = await createId(Planos)
     let create = new Date()
     let update = create
@@ -45,7 +46,7 @@ async function createPlan(req, res) { // Cria plano de saúde
     try {
         await Planos.create({ id, create, active, nome, login, password, update, web: "", data: { cod: "", tel: "", email: "", att: "", guia: "", senha: "", obs: "" } })
         console.log('Plano incluido com sucesso');
-        res.status(201).redirect('/config.html')
+        res.status(201).redirect(`/config?id=${token}`)
     }
     catch (error) {
         res.status(500).send(error);
@@ -53,8 +54,9 @@ async function createPlan(req, res) { // Cria plano de saúde
 }
 
 async function createRamal(req, res) { // Cria ramal
-    let id = await createId(Ramais)
+    const token = req.query.id
     try {
+        let id = await createId(Ramais)
         let { setor, ramal } = req.body
         let create = new Date()
         let update = create
@@ -68,7 +70,7 @@ async function createRamal(req, res) { // Cria ramal
                 update,
             })
             console.log('Ramal criado com sucesso!');
-            res.status(201).redirect('/config.html')
+            res.status(201).redirect(`/config?id=${token}`)
         } else {
             console.log('Preencha todos os campos!');
         }
@@ -78,9 +80,11 @@ async function createRamal(req, res) { // Cria ramal
     }
 }
 
-async function getBranches(req, res) { // Busca todos os "Ramais" mo DataBase
+async function getBranches(req, res) { // Busca todos os "Ramais" no DataBase
     try {
         let ramais = await Ramais.find({})
+        console.log(req.headers.Authorization)
+        console.log(req.userId)
         res.json(ramais)
     }
     catch (error) {
@@ -88,7 +92,7 @@ async function getBranches(req, res) { // Busca todos os "Ramais" mo DataBase
     }
 }
 
-async function getPlans(req, res) {  // Busca todos os "planos" mo DataBase
+async function getPlans(req, res) {  // Busca todos os "planos" no DataBase
     try {
         let plans = await Planos.find({})
         res.json(plans)
@@ -167,13 +171,20 @@ async function updateBranche(req, res) { // Atualiza "Ramais" no DataBase
 
 async function login(req, res) { // Validação de usuário e senha ao acessar a Aplicação
     let { user, password } = req.body
-    let UserFind = await User.findOne({ user, password })
+    let UserFind = await User.findOne({ user, password }, "-password")
     if (!UserFind) {
-       return res.status(404).json({ message: "Usuário ou senha incorretos!" })
+        return res.status(404).json({ message: "Usuário ou senha incorretos!" })
     }
     const token = await mid.createToken(UserFind)
+    req.headers['Authorization'] = `Bearer ${token}`;
+
     res.status(200).redirect(`/planos?id=${token}`)
 }
+
+
+
+
+
 
 //Acessar html
 async function planos(req, res) {

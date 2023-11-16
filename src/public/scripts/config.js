@@ -49,17 +49,16 @@ async function getDataPlans() { // Faz requisição dos "Planos" ao "DataBase"
 }
 
 async function getDataDocs() { // Faz requisição dos "Documentos" ao "DataBase"
-	let data;
 	try {
 		editLegends("Documentos");
 		createLoad(); // Cria elemento animado de "loading"
-		const api = await fetch("/getData?inf=");
-		data = await api.json();
-	}
-	catch (error) {
+		const api = await fetch(`/getBranches?id=${token}`);
+		const data = await api.json();
+		console.log(data);
+		createListDocs(data); // Cria a lista de acordo com os dados vindo do "DataBase"
+	} catch (error) {
 		console.error({ menssage: "Um erro foi encontrado: ", error });
 	}
-	getList(data); // Cria a lista de acordo com os dados vindo do "DataBase"
 }
 
 async function getDataRamais() { // Faz requisição dos "Ramais" ao "DataBase"
@@ -100,23 +99,45 @@ function createListRamais(e) { // Cria a lista de "Ramais" com os dados vindo do
 	createEvent(); // Cria eventos dos "Buttons" dos cards
 }
 
+function createListDocs(e) { // Cria a lista de "Documentos" com os dados vindo do "DataBase"
+	list.innerHTML = ""
+	newFormCreateDocs()
+	e.forEach(element => {
+		let newCardPlan = document.createElement("li")
+		newCardPlan.classList = "card"
+		newCardPlan.innerHTML = NewCardDocsHtml(element) // Cria o HTML do "Documento" com os dados do DataBase
+		list.appendChild(newCardPlan)
+	});
+	createEvent(); // Cria eventos dos "Buttons" dos cards
+}
+
+function newFormCreatePlans() { // Cria formulário para inclusão de um novo Plano
+	formCreate.innerHTML = `
+	<label>Criar Plano</label>
+	<form action="/createPlan?id=${token}" method="post">
+		<input type="text" name="nome" placeholder="Nome" required>
+		<input type="text" name="login" placeholder="Login">
+		<input type="text" name="password" placeholder="Senha">
+		<button type="submit">Criar</button>
+	</form>`
+}
+
 function newFormCreateRamal() { // Cria formulário para inclusão de um novo "Ramal"
 	formCreate.innerHTML = `
 		<label>Criar Ramal</label>
-        <form action="/createRamal" method="post">
+        <form action="/createRamal?id=${token}" method="post">
             <input type="text" name="setor" placeholder="Setor">
             <input type="text" name="ramal" placeholder="Ramal">
             <button type="submit">Criar</button>
         </form>`
 }
 
-function newFormCreatePlans() { // Cria formulário para inclusão de um novo Plano
+function newFormCreateDocs() { // Cria formulário para inclusão de um novo Documento
 	formCreate.innerHTML = `
-	<label>Criar Plano</label>
-	<form action="/createPlan" method="post">
+	<label>Criar Documento</label>
+	<form action="/createDocs?id=${token}" method="post">
 		<input type="text" name="nome" placeholder="Nome" required>
-		<input type="text" name="login" placeholder="Login">
-		<input type="text" name="password" placeholder="Senha">
+		<input type="file" name="src" placeholder="Arquivo">
 		<button type="submit">Criar</button>
 	</form>`
 }
