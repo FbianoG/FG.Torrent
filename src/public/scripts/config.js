@@ -36,6 +36,9 @@ cardRamais.addEventListener("click", getDataRamais);
 
 // Funções
 
+
+// Requisições
+
 async function getDataPlans() { // Faz requisição dos "Planos" ao "DataBase"
 	// try {
 	editLegends("Planos")
@@ -52,10 +55,10 @@ async function getDataDocs() { // Faz requisição dos "Documentos" ao "DataBase
 	try {
 		editLegends("Documentos");
 		createLoad(); // Cria elemento animado de "loading"
-		const api = await fetch(`/getBranches?id=${token}`);
+		const api = await fetch(`/getDocs?id=${token}`);
 		const data = await api.json();
-		console.log(data);
-		createListDocs(data); // Cria a lista de acordo com os dados vindo do "DataBase"
+		console.log(data)
+		createListDocs(data) // Cria a lista de acordo com os dados vindo do "DataBase"
 	} catch (error) {
 		console.error({ menssage: "Um erro foi encontrado: ", error });
 	}
@@ -73,6 +76,11 @@ async function getDataRamais() { // Faz requisição dos "Ramais" ao "DataBase"
 		console.error({ menssage: "Um erro foi encontrado: ", error });
 	}
 }
+
+
+
+
+// Cria
 
 function createListPlans(e) { // Cria a lista de "Planos" com os dados vindo do "DataBase"
 	list.innerHTML = ""
@@ -111,7 +119,7 @@ function createListDocs(e) { // Cria a lista de "Documentos" com os dados vindo 
 	createEvent(); // Cria eventos dos "Buttons" dos cards
 }
 
-function newFormCreatePlans() { // Cria formulário para inclusão de um novo Plano
+function newFormCreatePlans() { // Cria formulário para inclusão de um novo "Plano"
 	formCreate.innerHTML = `
 	<label>Criar Plano</label>
 	<form action="/createPlan?id=${token}" method="post">
@@ -132,15 +140,28 @@ function newFormCreateRamal() { // Cria formulário para inclusão de um novo "R
         </form>`
 }
 
-function newFormCreateDocs() { // Cria formulário para inclusão de um novo Documento
+function newFormCreateDocs() { // Cria formulário para inclusão de um novo "Documento"
 	formCreate.innerHTML = `
 	<label>Criar Documento</label>
-	<form action="/createDocs?id=${token}" method="post">
-		<input type="text" name="nome" placeholder="Nome" required>
-		<input type="file" name="src" placeholder="Arquivo">
+	<form action="/createDocs?id=${token}" method="post" enctype = "multipart/form-data">
+		<input type="text" name="name" placeholder="Nome" required>
+		<select name="category" required>
+			<option disabled selected>Categoria</option>
+			<option value="geral">Geral</option>
+			<option value="policial">Policial</option>
+			<option value="urgência">Urgência</option>
+			<option value="internação">Internação</option>
+			<option value="outros">Outros</option>
+		</select>
+		<input type="file" name="file" placeholder="Arquivo" required>
 		<button type="submit">Criar</button>
 	</form>`
 }
+
+
+
+
+// Outros
 
 function verificStatus(e) { // Verifica se o "Status" do elemento está ativo para mudar a cor
 	let spanStatus = e.querySelectorAll(".spanStatus")[0]
@@ -181,7 +202,7 @@ function newCardPlanHtml(e) { // Cria o HTML do "plano" com os dados do DataBase
         <p>${e.create.slice(0, 10).split("-").reverse().join("/")}</p>
         <p>${e.update.slice(0, 10).split("-").reverse().join("/")}</p>
         <p>${e.login}</p>
-        <p>${e.password}@2020</p>
+        <p>${e.password}</p>
         <p><span class="spanStatus"></span>${e.active}</p>
         <button class="btnExtend"><i class="fa-solid fa-caret-down"></i></button>
         <form action="/updatePlan?id=${token}" id="formEdit" method="post">
@@ -219,6 +240,36 @@ function newCardPlanHtml(e) { // Cria o HTML do "plano" com os dados do DataBase
 	return html;
 }
 
+function NewCardDocsHtml(e) { // Cria o HTML do "Documento" com os dados do DataBase
+	const html = `
+    <p>${e.name}</p>
+    <a href="../pdf/${e.src}" target='_blank' class="card-pdf"><i class="fa-solid fa-file-pdf"></i></a>
+    <p>${e.create.slice(0, 10).split("-").reverse().join("/")}</p>
+    <p>${e.update.slice(0, 10).split("-").reverse().join("/")}</p>
+    <button class="btnExtend"><i class="fa-solid fa-caret-down"></i></button>
+    <form action="/updateDocs?id=${token}" id="formEdit" method="post" enctype = "multipart/form-data">
+        <input type="text" name="id" disabled value="${e.id}" style="display: none">
+        <label for="name">Nome:</label>
+        <input type="text" name="name" id="nome" disabled value="${e.name}" required>
+        <label for="file">Arquivo:</label>
+        <input type="file" name="file" disabled required>
+		<label for="category">Categoria:</label>
+		<select name="category" required disabled value="${e.category}">
+			<option value="geral">Geral</option>
+			<option value="policial">Policial</option>
+			<option value="urgência">Urgência</option> 
+			<option value="internação">Internação</option>
+			<option value="outros">Outros</option>
+		</select>
+        <div class="dataBtn">
+            <button type="button" value="Editar" class="btnEdit">Editar</button>
+            <button type="submit" value="Update">Update</button>
+        </div>
+    </form>
+`
+	return html
+}
+
 function NewCardRamalHtml(e) { // Cria o HTML do "ramal" com os dados do DataBase
 	const html = `
     <p>${e.setor}</p>
@@ -244,19 +295,32 @@ function NewCardRamalHtml(e) { // Cria o HTML do "ramal" com os dados do DataBas
 function editable() { // Transforma os "inputs" em editáveis
 	let card = this.parentElement.parentElement
 	let input = card.querySelectorAll("input")
+	let select = card.querySelectorAll("select")[0]
 	let textArea = card.querySelectorAll("textArea")[0]
 	if (this.textContent == "Editar") {
 		this.textContent = "Cancelar"
 		input.forEach(element => {
 			element.removeAttribute("disabled")
 		});
-		textArea.removeAttribute("disabled")
+		if (textArea) {
+			textArea.removeAttribute("disabled")
+		}
+		if (select) {
+			select.removeAttribute("disabled")
+		}
+
+
 	} else {
 		this.textContent = "Editar"
 		input.forEach(element => {
 			element.setAttribute("disabled", true)
 		});
-		textArea.setAttribute("disabled", true)
+		if (textArea) {
+			textArea.setAttribute("disabled", true)
+		}
+		if (select) {
+			select.setAttribute("disabled", true)
+		}
 	}
 }
 

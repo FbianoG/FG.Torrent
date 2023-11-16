@@ -19,7 +19,7 @@ let token = urlParams.get('id');
 const jwtLinks = document.querySelectorAll('nav a');
 jwtLinks.forEach(link => {
     link.addEventListener('click', function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         const originalHref = this.getAttribute('href');
         const url = originalHref + `?id=${token}`;
         window.location.href = url;
@@ -39,12 +39,23 @@ searchInput.addEventListener('keyup', filterForName) // Filtra "lista de documen
 
 // Funções
 
+getDocs()
+
+async function getDocs() {
+    let api = await fetch(`/getDocs?id=${token}`)
+    let data = await api.json()
+    console.log(data)
+    createList(data)
+    
+}
+
+
 function createList(e) { // Cria e gera "card de documentos"
     console.log(e);
     list.innerHTML = ''
     e.forEach(element => {
         let newDoc = document.createElement('div') // Cria HTML dos "cards de documentos"
-        newDoc.classList = `card ${element.type}`
+        newDoc.classList = `card policial`
         newDoc.innerHTML = createCardHtml(element)
         list.appendChild(newDoc)
     })
@@ -60,8 +71,8 @@ function filterForName() { // Filtra "lista de documentos" pelo valor do "input"
 function createCardHtml(e) {  // Cria HTML dos "cards de documentos"
     const html = `
         <p class="card-termo">${e.name}</p>
-        <p class="card-categoria" id="card-${e.type}">${e.type}</p> 
-        <a href="${e.doc}" target='_blank' class="card-pdf"><i class="fa-solid fa-file-pdf"></i></a>
+        <p class="card-categoria" id="card-${e.category}">${e.category}</p> 
+        <a href="../pdf/${e.src}" target='_blank' class="card-pdf"><i class="fa-solid fa-file-pdf"></i></a>
     `
     return html
 }
@@ -71,4 +82,4 @@ function createCardHtml(e) {  // Cria HTML dos "cards de documentos"
 
 // Chamadas
 
-createList(files) // Cria e gera "card de documentos"
+// Cria e gera "card de documentos"

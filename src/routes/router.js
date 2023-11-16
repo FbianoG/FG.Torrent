@@ -2,10 +2,11 @@ const router = require('express').Router()
 const control = require('../controllers/controller')
 const mid = require('../controllers/middlewares')
 
+
 //POST
 router.post('/createPlan', control.createPlan)
 router.post('/createRamal', control.createRamal)
-router.post('/createDocs', control.createRamal)
+router.post('/createDocs', mid.upload.single("file"), control.createDocs)
 
 router.post('/login', control.login)
 
@@ -14,7 +15,7 @@ router.post('/login', control.login)
 
 //Busca de dados DataBase
 router.get('/getPlans', mid.verifyToken, control.getPlans)
-// router.get('/getTermos', mid.verifyToken, control.findById)
+router.get('/getDocs', mid.verifyToken, control.getDocs)
 router.get('/getBranches', mid.verifyToken, control.getBranches)
 // router.get('/getSites', mid.verifyToken, control.findById)
 
@@ -33,6 +34,7 @@ router.get('/getData', control.getData)
 
 //PUT
 router.post('/updatePlan', control.updatePlan) // Atualiza plano
+router.post('/updateDocs', mid.upload.single("file"), control.updateDocs) // Atualiza ramal
 router.post('/updateBranche', control.updateBranche) // Atualiza ramal
 
 

@@ -21,9 +21,18 @@ const Planos = mongoose.model('planos', {
 })
 
 const Ramais = mongoose.model('ramais', {
-    id: {type: Number, unique: true},
+    id: { type: Number, unique: true },
     setor: { type: String, unique: true },
     ramal: { type: String, unique: true },
+    create: Date,
+    update: Date,
+})
+
+const Docs = mongoose.model('docs', {
+    id: { type: Number, unique: true },
+    name: { type: String, unique: true },
+    src: { type: String, unique: true },
+    category: String,
     create: Date,
     update: Date,
 })
@@ -35,6 +44,7 @@ const User = mongoose.model("user", {
 
 module.exports = {
     Planos,
+    Docs,
     Ramais,
-    User
+    User,
 }

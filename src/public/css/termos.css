@@ -118,13 +118,24 @@
     /* border-radius: 15px; */
     /* background: #d4e7f9; */
 }
-#card-atendimento {
+#card-urgência {
     color: #ee7878;
     /* border-radius: 15px; */
     /* background: #f9d6d4; */
 }
-#card-outros {
+#card-internação {
     color: #5ccf52;
+
+    /* border-radius: 15px; */
+    /* background: #d4f9d9; */
+}
+#card-outros {
+    color: #cfc752;
+    /* border-radius: 15px; */
+    /* background: #d4f9d9; */
+}
+#card-geral {
+    color: #52cbcf;
     /* border-radius: 15px; */
     /* background: #d4f9d9; */
 }
