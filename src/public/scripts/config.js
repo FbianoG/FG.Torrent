@@ -345,7 +345,9 @@ function editLegends(e) { // Muda legenda da lista de acordo com filtro selecina
 	} else if (e == "Documentos") {
 		legends.innerHTML = `
             <label>Documento</label>
-            <label>Arquivo</label>`;
+            <label>Arquivo</label>
+            <label>Criado em</label>
+            <label>Atualizado em</label>`
 	} else {
 		legends.innerHTML = `
             <label>Plano</label>
