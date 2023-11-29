@@ -1,5 +1,17 @@
 @import url('header.css');
 
+
+.container h2 {
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 20px;
+    width: 60%;
+    min-width: 300px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    color: #5382b9;
+}
+
 .etiqueta {
     margin: 0 auto;
     width: 300px;
@@ -70,6 +82,10 @@ textarea {
         display: none;
     }
 
+    .container h2 {
+        display: none;
+    }
+    
     .container {
         margin: 0;
         padding: 0;

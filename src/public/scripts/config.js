@@ -3,6 +3,7 @@ let containerList = document.querySelectorAll(".containerList")[0];
 let cardPlans = document.querySelectorAll(".cardPlans")[0];
 let cardDocs = document.querySelectorAll(".cardDocs")[0];
 let cardRamais = document.querySelectorAll(".cardRamais")[0];
+let cardSites = document.querySelectorAll(".cardSites")[0];
 let list = document.querySelectorAll(".list")[0];
 let legends = document.querySelectorAll(".legends")[0];
 let formCreate = document.querySelectorAll('.formCreate')[0]
@@ -30,6 +31,7 @@ jwtLinks.forEach(link => {
 cardPlans.addEventListener("click", getDataPlans);
 cardDocs.addEventListener("click", getDataDocs);
 cardRamais.addEventListener("click", getDataRamais);
+cardSites.addEventListener("click", getDataSites);
 
 
 
@@ -77,6 +79,19 @@ async function getDataRamais() { // Faz requisição dos "Ramais" ao "DataBase"
 	}
 }
 
+async function getDataSites() { // Faz requisição dos "Ramais" ao "DataBase"
+	try {
+		editLegends("Sites");
+		createLoad(); // Cria elemento animado de "loading"
+		const api = await fetch(`/getSites?id=${token}`);
+		const data = await api.json();
+		console.log(data);
+		createListSites(data); // Cria a lista de acordo com os dados vindo do "DataBase"
+	} catch (error) {
+		console.error({ menssage: "Um erro foi encontrado: ", error });
+	}
+}
+
 
 
 
@@ -119,6 +134,20 @@ function createListDocs(e) { // Cria a lista de "Documentos" com os dados vindo 
 	createEvent(); // Cria eventos dos "Buttons" dos cards
 }
 
+function createListSites(e) { // Cria a lista de "Documentos" com os dados vindo do "DataBase"
+	list.innerHTML = ""
+	newFormCreateSites()
+	e.forEach(element => {
+		let newCardPlan = document.createElement("li")
+		newCardPlan.classList = "card"
+		newCardPlan.innerHTML = NewCardSitesHtml(element) // Cria o HTML do "Documento" com os dados do DataBase
+		list.appendChild(newCardPlan)
+	});
+	createEvent(); // Cria eventos dos "Buttons" dos cards
+}
+
+
+
 function newFormCreatePlans() { // Cria formulário para inclusão de um novo "Plano"
 	formCreate.innerHTML = `
 	<label>Criar Plano</label>
@@ -154,6 +183,17 @@ function newFormCreateDocs() { // Cria formulário para inclusão de um novo "Do
 			<option value="outros">Outros</option>
 		</select>
 		<input type="file" name="file" placeholder="Arquivo" required>
+		<button type="submit">Criar</button>
+	</form>`
+}
+
+function newFormCreateSites() { // Cria formulário para inclusão de um novo "Documento"
+	formCreate.innerHTML = `
+	<label>Criar Site</label>
+	<form action="/createSite?id=${token}" method="post">
+		<input type="text" name="name" placeholder="Nome" required>
+		<input type="text" name="web" placeholder="URL do Site" required>
+		<input type="text" name="src" placeholder="URL da Imagem">
 		<button type="submit">Criar</button>
 	</form>`
 }
@@ -292,6 +332,28 @@ function NewCardRamalHtml(e) { // Cria o HTML do "ramal" com os dados do DataBas
 	return html
 }
 
+function NewCardSitesHtml(e) { // Cria o HTML do "ramal" com os dados do DataBase
+	const html = `
+    <p>${e.name}</p>
+    <p>${e.web}</p>
+    <p>${e.create.slice(0, 10).split("-").reverse().join("/")}</p>
+    <p>${e.update.slice(0, 10).split("-").reverse().join("/")}</p>
+    <button class="btnExtend"><i class="fa-solid fa-caret-down"></i></button>
+    <form action="/updateBranche?id=${token}" id="formEdit" method="post">
+        <input type="text" name="id" disabled value="${e.id}" style="display: none">
+        <label for="">Nome:</label>
+        <input type="text" name="name" id="nome" disabled value="${e.name}">
+        <label for="">URL do Site::</label>
+        <input type="text" name="ramal" disabled value="${e.web}">
+        <div class="dataBtn">
+            <button type="button" value="Editar" class="btnEdit">Editar</button>
+            <button type="submit" value="Update">Update</button>
+        </div>
+    </form>
+`
+	return html
+}
+
 function editable() { // Transforma os "inputs" em editáveis
 	let card = this.parentElement.parentElement
 	let input = card.querySelectorAll("input")
@@ -346,6 +408,12 @@ function editLegends(e) { // Muda legenda da lista de acordo com filtro selecina
 		legends.innerHTML = `
             <label>Documento</label>
             <label>Arquivo</label>
+            <label>Criado em</label>
+            <label>Atualizado em</label>`
+	} else if (e == "Sites") {
+		legends.innerHTML = `
+            <label>Nome Site</label>
+            <label>Link Site</label>
             <label>Criado em</label>
             <label>Atualizado em</label>`
 	} else {

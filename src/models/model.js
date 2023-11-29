@@ -42,9 +42,20 @@ const User = mongoose.model("user", {
     password: String
 })
 
+const Sites = mongoose.model("sites", {
+    id: { type: Number, unique: true },
+    name: { type: String, unique: true },
+    web: { type: String, unique: true },
+    src: String,
+    create: Date,
+    update: Date,
+
+})
+
 module.exports = {
     Planos,
     Docs,
     Ramais,
+    Sites,
     User,
 }

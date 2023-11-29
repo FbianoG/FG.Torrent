@@ -7,6 +7,7 @@ const mid = require('../controllers/middlewares')
 router.post('/createPlan', control.createPlan)
 router.post('/createRamal', control.createRamal)
 router.post('/createDocs', mid.upload.single("file"), control.createDocs)
+router.post('/createSite', control.createSites)
 
 router.post('/login', control.login)
 
@@ -17,7 +18,7 @@ router.post('/login', control.login)
 router.get('/getPlans', mid.verifyToken, control.getPlans)
 router.get('/getDocs', mid.verifyToken, control.getDocs)
 router.get('/getBranches', mid.verifyToken, control.getBranches)
-// router.get('/getSites', mid.verifyToken, control.findById)
+router.get('/getSites', mid.verifyToken, control.getSites)
 
 //Paginas html
 router.get('/planos', mid.verifyToken, control.planos)
@@ -30,7 +31,7 @@ router.get('/sites', mid.verifyToken, control.sites)
 router.get('/config', mid.verifyToken, control.config)
 
 //GET => config.html
-router.get('/getData', control.getData)
+// router.get('/getData', control.getData)
 
 //PUT
 router.post('/updatePlan', control.updatePlan) // Atualiza plano

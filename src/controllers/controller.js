@@ -1,4 +1,4 @@
-const { Planos, Docs, Ramais, User } = require("../models/model")
+const { Planos, Docs, Ramais, Sites, User } = require("../models/model")
 const path = require('path')
 const mid = require('./middlewares')
 const fs = require('fs');
@@ -40,9 +40,7 @@ async function login(req, res) { // Validação de usuário e senha ao acessar a
     if (!UserFind) {
         return res.status(404).json({ message: "Usuário ou senha incorretos!" })
     }
-    const token = await mid.createToken(UserFind)
-    req.headers['Authorization'] = `Bearer ${token}`;
-
+    const token = await mid.createToken(UserFind._id)
     res.status(200).redirect(`/planos?id=${token}`)
 }
 
@@ -122,6 +120,34 @@ async function createRamal(req, res) { // Cria ramal
     }
 }
 
+async function createSites(req, res) { // Cria ramal
+    const token = req.query.id
+    try {
+        let id = await createId(Sites)
+        let { name, web, src } = req.body
+        let create = new Date()
+        let update = create
+        if (name && web) {
+            name = name.toLowerCase()
+            const createRamal = await Sites.create({
+                id,
+                name,
+                web,
+                src,
+                update,
+                create,
+            })
+            console.log('Site criado com sucesso!');
+            res.status(201).redirect(`/config?id=${token}`)
+        } else {
+            console.log('Preencha todos os campos!', name);
+        }
+    } catch (error) {
+        console.log({ message: error });
+        res.status(500).json({ message: error })
+    }
+}
+
 
 
 
@@ -161,16 +187,28 @@ async function getPlans(req, res) {  // Busca todos os "planos" no DataBase
     }
 }
 
-async function getData(req, res) { // Busca todos os "Planos", "Ramais" para configuração
-    let inf = req.query.inf
-    if (inf == "Planos") {
-        const getData = await Planos.find({})
-        res.json(getData)
-    } else if (inf == "Ramais") {
-        const getData = await Ramais.find({})
-        res.json(getData)
+async function getSites(req, res) {  // Busca todos os "Sites" no DataBase
+    try {
+        let sites = await Sites.find({})
+        res.json(sites)
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar Sites' });
     }
 }
+
+
+
+// async function getData(req, res) { // Busca todos os "Planos", "Ramais" para configuração
+//     let inf = req.query.inf
+//     if (inf == "Planos") {
+//         const getData = await Planos.find({})
+//         res.json(getData)
+//     } else if (inf == "Ramais") {
+//         const getData = await Ramais.find({})
+//         res.json(getData)
+//     }
+// }
 
 
 
@@ -236,14 +274,6 @@ async function updateDocs(req, res) { // Atualiza "Documento" no DataBase
     } catch (error) {
 
     }
-
-
-
-
-
-
-
-
 }
 
 async function updateBranche(req, res) { // Atualiza "Ramais" no DataBase
@@ -283,10 +313,10 @@ async function termos(req, res) {
     res.status(200).sendFile(path.join(__dirname, "../public/html/termos.html"))
 }
 async function guias(req, res) {
-    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "guias.html"))
+    res.status(200).sendFile(path.join(__dirname, "../public/html/guias.html"))
 }
 async function cadastro(req, res) {
-    res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "cadastro.html"))
+    res.status(200).sendFile(path.join(__dirname, "../public/html/cadastro.html"))
 }
 async function etiqueta(req, res) {
     res.status(200).sendFile(path.join(__dirname, "..", "public", "html", "etiqueta.html"))
@@ -310,7 +340,7 @@ module.exports = {
     getPlans,
     updatePlan,
     getBranches,
-    getData,
+    getSites,
     updateBranche,
     login,
     planos,
@@ -322,6 +352,7 @@ module.exports = {
     sites,
     config,
     createDocs,
+    createSites,
     getDocs,
     updateDocs,
 
