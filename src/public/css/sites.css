@@ -63,5 +63,6 @@
 
 .list li:hover {
     transition: 250ms;
-    border-color: #5382b9;
+    transform: scale(1.02);
+    box-shadow: 3px 3px 10px #0003;
 }
