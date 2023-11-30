@@ -16,8 +16,8 @@ let token = urlParams.get('id');
 
 
 const jwtLinks = document.querySelectorAll('nav a');
-jwtLinks.forEach(link => {
-	link.addEventListener('click', function (event) {
+jwtLinks.forEach(element => {
+	element.addEventListener('click', function (event) {
 		event.preventDefault();
 		const originalHref = this.getAttribute('href');
 		const url = originalHref + `?id=${token}`;
@@ -33,7 +33,9 @@ cardDocs.addEventListener("click", getDataDocs);
 cardRamais.addEventListener("click", getDataRamais);
 cardSites.addEventListener("click", getDataSites);
 
-
+document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => { // Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento)
+	e.target.style.transition = '400ms'
+})
 
 
 // Funções
@@ -130,8 +132,16 @@ function createListDocs(e) { // Cria a lista de "Documentos" com os dados vindo 
 		newCardPlan.classList = "card"
 		newCardPlan.innerHTML = NewCardDocsHtml(element) // Cria o HTML do "Documento" com os dados do DataBase
 		list.appendChild(newCardPlan)
+		changeSelect(element, newCardPlan.querySelectorAll('select')[0]) // Muda value do select do "formulário"
 	});
 	createEvent(); // Cria eventos dos "Buttons" dos cards
+}
+
+
+function changeSelect(element, select) { // Muda value do select do "formulário"
+	let category = element.category
+	let ufa = select.querySelectorAll(`option[value='${category}']`)[0]
+	ufa.setAttribute("selected", "selected")
 }
 
 function createListSites(e) { // Cria a lista de "Documentos" com os dados vindo do "DataBase"
@@ -292,9 +302,9 @@ function NewCardDocsHtml(e) { // Cria o HTML do "Documento" com os dados do Data
         <label for="name">Nome:</label>
         <input type="text" name="name" id="nome" disabled value="${e.name}" required>
         <label for="file">Arquivo:</label>
-        <input type="file" name="file" disabled required>
+        <input type="file" name="file" disabled>
 		<label for="category">Categoria:</label>
-		<select name="category" required disabled value="${e.category}">
+		<select name="category" required disabled >
 			<option value="geral">Geral</option>
 			<option value="policial">Policial</option>
 			<option value="urgência">Urgência</option> 
@@ -335,16 +345,18 @@ function NewCardRamalHtml(e) { // Cria o HTML do "ramal" com os dados do DataBas
 function NewCardSitesHtml(e) { // Cria o HTML do "ramal" com os dados do DataBase
 	const html = `
     <p>${e.name}</p>
-    <p>${e.web}</p>
+    <a href="${e.web}" target="_blank"><i class="fa-regular fa-window-restore"></i></a>
     <p>${e.create.slice(0, 10).split("-").reverse().join("/")}</p>
     <p>${e.update.slice(0, 10).split("-").reverse().join("/")}</p>
     <button class="btnExtend"><i class="fa-solid fa-caret-down"></i></button>
-    <form action="/updateBranche?id=${token}" id="formEdit" method="post">
+    <form action="/updateSite?id=${token}" id="formEdit" method="post">
         <input type="text" name="id" disabled value="${e.id}" style="display: none">
         <label for="">Nome:</label>
         <input type="text" name="name" id="nome" disabled value="${e.name}">
-        <label for="">URL do Site::</label>
-        <input type="text" name="ramal" disabled value="${e.web}">
+        <label for="">URL do Site:</label>
+        <input type="text" name="web" disabled value="${e.web}">
+        <label for="">URL da Imagem:</label>
+        <input type="text" name="src" disabled value="${e.src}">
         <div class="dataBtn">
             <button type="button" value="Editar" class="btnEdit">Editar</button>
             <button type="submit" value="Update">Update</button>

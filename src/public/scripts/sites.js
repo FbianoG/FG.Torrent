@@ -18,6 +18,9 @@ jwtLinks.forEach(link => {
 });
 
 
+document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => { // Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento)
+	e.target.style.transition = '400ms'
+})
 
 
 // Funções

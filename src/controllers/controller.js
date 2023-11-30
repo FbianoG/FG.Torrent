@@ -33,7 +33,6 @@ function newDate() { // Função para criar uma nova data
 
 // Controllers
 
-
 async function login(req, res) { // Validação de usuário e senha ao acessar a Aplicação
     let { user, password } = req.body
     let UserFind = await User.findOne({ user, password }, "-password")
@@ -199,21 +198,7 @@ async function getSites(req, res) {  // Busca todos os "Sites" no DataBase
 
 
 
-// async function getData(req, res) { // Busca todos os "Planos", "Ramais" para configuração
-//     let inf = req.query.inf
-//     if (inf == "Planos") {
-//         const getData = await Planos.find({})
-//         res.json(getData)
-//     } else if (inf == "Ramais") {
-//         const getData = await Ramais.find({})
-//         res.json(getData)
-//     }
-// }
-
-
-
-
-// Atualiza
+// Updates
 
 async function updatePlan(req, res) {  // Atualiza "Planos" no DataBase
     try {
@@ -243,7 +228,7 @@ async function updatePlan(req, res) {  // Atualiza "Planos" no DataBase
             },
             update,
             active: activeStatus,
-        }, { new: true })
+        })
         res.status(204).redirect(`/config?id=${token}`)
     }
     catch (error) {
@@ -254,54 +239,63 @@ async function updatePlan(req, res) {  // Atualiza "Planos" no DataBase
 
 async function updateDocs(req, res) { // Atualiza "Documento" no DataBase
     try {
+        const token = req.query.id
         let { id, name, category } = req.body
         if (!id || !name || !category) {
-            res.status(400).json({ menssage: "Preencha todos os campos do 'Formulário de Atualização'" })
+            return res.status(400).json({ menssage: "Preencha todos os campos do 'Formulário de Atualização'" })
         }
-        // excluir pdf  usando "FS"
-        let originalDoc = await Docs.findOne({ id }) // localizar o documento no DataBase
-        let lastSrc = originalDoc.src // Extrair nome do pdf salvo no "Documento"
-        const filePath = path.join(__dirname, `../public/pdf/${lastSrc}`) // localizar arquivo na pasta
-        fs.unlinkSync(filePath) // Excluir arquivo da pasta
-        console.log(`Arquivo anterior (${lastSrc}) excluído com sucesso.`)
-
-        // Processo normal de "Update"
         name = name.toLowerCase()
-        let file = req.file
-        let update = new Date()
-        let updateDocs = await Docs.findOneAndUpdate({ id }, { id, name, category, src: file.filename, update }, { new: true })
-        res.json({ updateDocs })
+        const update = new Date()
+        const file = req.file
+        const originalDoc = await Docs.findOne({ id }) // localizar o documento no DataBase
+        const lastSrc = originalDoc.src // Extrair nome do pdf salvo no "Documento"
+        if (file) {
+            // excluir pdf  usando "FS"
+            const filePath = path.join(__dirname, `../public/pdf/${lastSrc}`) // localizar arquivo na pasta
+            try {
+                fs.unlinkSync(filePath) // Excluir arquivo da pasta
+                console.log(`Arquivo anterior (${lastSrc}) excluído com sucesso.`)
+            } catch (prosseguir) { }
+            const updateDocs = await Docs.findOneAndUpdate({ id }, { id, name, category, src: file.filename, update })
+            return res.status(204).redirect(`/config?id=${token}`)
+        } else {
+            let updateDocs = await Docs.findOneAndUpdate({ id }, { id, name, category, update })
+            return res.status(204).redirect(`/config?id=${token}`)
+        }
     } catch (error) {
-
+        return res.status(500).json({ message: "Ocorreu algum erro!" });
     }
 }
 
 async function updateBranche(req, res) { // Atualiza "Ramais" no DataBase
 
     try {
+        const token = req.query.id
         let { id, setor, ramal } = req.body
         let update = new Date()
         setor = setor.toLowerCase()
-        let brancheUpdate = await Ramais.findOneAndUpdate({ id: id }, {
-            setor,
-            ramal,
-            update,
-        }, { new: true })
-        console.log(brancheUpdate);
-        res.status(201).redirect("/config.html")
+        let brancheUpdate = await Ramais.findOneAndUpdate({ id: id }, { setor, ramal, update, })
+        res.status(201).redirect(`/config?id=${token}`)
     }
     catch (error) {
         res.status(500).json({ message: "Erro ao atualizar os dados! ", error })
     }
 }
 
-
-
-
-
-
-
-
+async function updateSite(req, res) { // Atualiza "Sites" no DataBase
+    try {
+        const token = req.query.id
+        let { id, name, src, web } = req.body
+        if (name == '' || web == '' || !name || !web) {
+            return res.status(401).json({ message: "'Nome' e 'URL do Site' devem estar preenchidos!" })
+        }
+        name = name.toLowerCase()
+        const updadeSite = await Sites.findOneAndUpdate({ id }, { name, web, src })
+        return res.status(204).redirect(`/config?id=${token}`)
+    } catch (error) {
+        return res.status(500).json({ message: "Ocorreu algum erro!", error })
+    }
+}
 
 
 
@@ -355,5 +349,6 @@ module.exports = {
     createSites,
     getDocs,
     updateDocs,
+    updateSite,
 
 }
