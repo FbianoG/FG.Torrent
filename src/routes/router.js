@@ -35,9 +35,9 @@ router.get('/config', mid.verifyToken, control.config)
 
 //PUT
 router.post('/updatePlan', control.updatePlan) // Atualiza plano
-router.post('/updateDocs', mid.upload.single("file"), control.updateDocs) // Atualiza ramal
+router.post('/updateDocs', mid.upload.single("file"), control.updateDocs) // Atualiza Documento
 router.post('/updateBranche', control.updateBranche) // Atualiza ramal
-router.post('/updateSite', control.updateSite) // Atualiza ramal
+router.post('/updateSite', control.updateSite) // Atualiza Site
 
 
 

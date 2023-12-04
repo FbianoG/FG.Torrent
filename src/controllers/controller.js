@@ -15,7 +15,7 @@ async function createId(e) { // Function para crianção de um ID presonalizado
                 return i
             }
         } catch (error) {
-            console.error({ menssage: "Um erro foi encontrado: ", error })
+            console.error({ message: "Um erro foi encontrado: ", error })
         }
     }
 }
@@ -119,7 +119,7 @@ async function createRamal(req, res) { // Cria ramal
     }
 }
 
-async function createSites(req, res) { // Cria ramal
+async function createSites(req, res) { // Cria Site
     const token = req.query.id
     try {
         let id = await createId(Sites)
@@ -242,7 +242,7 @@ async function updateDocs(req, res) { // Atualiza "Documento" no DataBase
         const token = req.query.id
         let { id, name, category } = req.body
         if (!id || !name || !category) {
-            return res.status(400).json({ menssage: "Preencha todos os campos do 'Formulário de Atualização'" })
+            return res.status(400).json({ message: "Preencha todos os campos do 'Formulário de Atualização'" })
         }
         name = name.toLowerCase()
         const update = new Date()
@@ -268,13 +268,12 @@ async function updateDocs(req, res) { // Atualiza "Documento" no DataBase
 }
 
 async function updateBranche(req, res) { // Atualiza "Ramais" no DataBase
-
     try {
         const token = req.query.id
         let { id, setor, ramal } = req.body
         let update = new Date()
         setor = setor.toLowerCase()
-        let brancheUpdate = await Ramais.findOneAndUpdate({ id: id }, { setor, ramal, update, })
+        const brancheUpdate = await Ramais.findOneAndUpdate({ id }, { setor, ramal, update })
         res.status(201).redirect(`/config?id=${token}`)
     }
     catch (error) {
@@ -330,12 +329,17 @@ async function config(req, res) {
 
 module.exports = {
     createPlan,
+    createDocs,
     createRamal,
+    createSites,
     getPlans,
-    updatePlan,
+    getDocs,
     getBranches,
     getSites,
+    updatePlan,
     updateBranche,
+    updateDocs,
+    updateSite,
     login,
     planos,
     termos,
@@ -345,10 +349,4 @@ module.exports = {
     ramais,
     sites,
     config,
-    createDocs,
-    createSites,
-    getDocs,
-    updateDocs,
-    updateSite,
-
 }

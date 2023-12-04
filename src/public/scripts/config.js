@@ -1,16 +1,16 @@
 // Variáveis
-let containerList = document.querySelectorAll(".containerList")[0];
-let cardPlans = document.querySelectorAll(".cardPlans")[0];
-let cardDocs = document.querySelectorAll(".cardDocs")[0];
-let cardRamais = document.querySelectorAll(".cardRamais")[0];
-let cardSites = document.querySelectorAll(".cardSites")[0];
-let list = document.querySelectorAll(".list")[0];
-let legends = document.querySelectorAll(".legends")[0];
+let containerList = document.querySelectorAll(".containerList")[0]
+let cardPlans = document.querySelectorAll(".cardPlans")[0]
+let cardDocs = document.querySelectorAll(".cardDocs")[0]
+let cardRamais = document.querySelectorAll(".cardRamais")[0]
+let cardSites = document.querySelectorAll(".cardSites")[0]
+let list = document.querySelectorAll(".list")[0]
+let legends = document.querySelectorAll(".legends")[0]
 let formCreate = document.querySelectorAll('.formCreate')[0]
 
 
-const urlParams = new URLSearchParams(window.location.search);
-let token = urlParams.get('id');
+const urlParams = new URLSearchParams(window.location.search)
+let token = urlParams.get('id')
 
 
 
@@ -23,15 +23,15 @@ jwtLinks.forEach(element => {
 		const url = originalHref + `?id=${token}`;
 		window.location.href = url;
 	});
-});
+})
 
 
 // Eventos
 
-cardPlans.addEventListener("click", getDataPlans);
-cardDocs.addEventListener("click", getDataDocs);
-cardRamais.addEventListener("click", getDataRamais);
-cardSites.addEventListener("click", getDataSites);
+cardPlans.addEventListener("click", getDataPlans)
+cardDocs.addEventListener("click", getDataDocs)
+cardRamais.addEventListener("click", getDataRamais)
+cardSites.addEventListener("click", getDataSites)
 
 document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => { // Criar transition ao tirar mouse do menu lateral (para evitar problemas no carregamento)
 	e.target.style.transition = '400ms'
@@ -39,7 +39,6 @@ document.querySelectorAll('nav')[0].addEventListener('mouseleave', (e) => { // C
 
 
 // Funções
-
 
 // Requisições
 
@@ -94,10 +93,7 @@ async function getDataSites() { // Faz requisição dos "Ramais" ao "DataBase"
 	}
 }
 
-
-
-
-// Cria
+// Criar
 
 function createListPlans(e) { // Cria a lista de "Planos" com os dados vindo do "DataBase"
 	list.innerHTML = ""
@@ -157,7 +153,6 @@ function createListSites(e) { // Cria a lista de "Documentos" com os dados vindo
 }
 
 
-
 function newFormCreatePlans() { // Cria formulário para inclusão de um novo "Plano"
 	formCreate.innerHTML = `
 	<label>Criar Plano</label>
@@ -207,9 +202,6 @@ function newFormCreateSites() { // Cria formulário para inclusão de um novo "D
 		<button type="submit">Criar</button>
 	</form>`
 }
-
-
-
 
 // Outros
 
@@ -445,4 +437,4 @@ function editLegends(e) { // Muda legenda da lista de acordo com filtro selecina
 
 // Chamadas 
 
-getDataPlans();
+getDataPlans()
