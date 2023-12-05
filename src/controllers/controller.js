@@ -1,7 +1,7 @@
 const { Planos, Docs, Ramais, Sites, User } = require("../models/model")
 const path = require('path')
-const mid = require('./middlewares')
 const fs = require('fs');
+const jwt = require('../middlewares/jwt')
 
 
 
@@ -30,8 +30,9 @@ function newDate() { // Função para criar uma nova data
 
 
 
-
 // Controllers
+
+
 
 async function login(req, res) { // Validação de usuário e senha ao acessar a Aplicação
     let { user, password } = req.body
@@ -39,7 +40,7 @@ async function login(req, res) { // Validação de usuário e senha ao acessar a
     if (!UserFind) {
         return res.status(404).json({ message: "Usuário ou senha incorretos!" })
     }
-    const token = await mid.createToken(UserFind._id)
+    const token = await jwt.createToken(UserFind._id)
     res.status(200).redirect(`/planos?id=${token}`)
 }
 

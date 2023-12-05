@@ -56,11 +56,11 @@ const fileFilter = function (req, file, cb) { // "fileFilter" são as configura�
 const limits = { // Ajusta o tamanho máximo permitido
     fileSize: 5 * 1024 * 1024, // 4 MB
 }
-const upload = multer({
-    storage: storage,
-    fileFilter: fileFilter,
-    limits: limits
-})
+// const upload = multer({
+//     storage: storage,
+//     fileFilter: fileFilter,
+//     limits: limits
+// })
 
 
 
@@ -80,8 +80,8 @@ const upload = multer({
 
 
 
-module.exports = {
-    createToken,
-    verifyToken,
-    upload
-}
+// module.exports = {
+//     createToken,
+//     verifyToken,
+//     upload
+// }

@@ -7,21 +7,22 @@ let cardSites = document.querySelectorAll(".cardSites")[0]
 let list = document.querySelectorAll(".list")[0]
 let legends = document.querySelectorAll(".legends")[0]
 let formCreate = document.querySelectorAll('.formCreate')[0]
+const jwtLinks = document.querySelectorAll('nav a')
 
 
+
+// Pega o parâmentro da URL
 const urlParams = new URLSearchParams(window.location.search)
 let token = urlParams.get('id')
 
 
 
-
-const jwtLinks = document.querySelectorAll('nav a');
-jwtLinks.forEach(element => {
-	element.addEventListener('click', function (event) {
-		event.preventDefault();
-		const originalHref = this.getAttribute('href');
-		const url = originalHref + `?id=${token}`;
-		window.location.href = url;
+jwtLinks.forEach(element => { // Evento de clique a todos os elementos <a> dentro de um elemento <nav>
+	element.addEventListener('click', (e) => {
+		e.preventDefault()
+		const originalHref = element.getAttribute('href')
+		const url = originalHref + `?id=${token}`
+		window.location.href = url
 	});
 })
 
