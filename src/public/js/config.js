@@ -332,7 +332,6 @@ function NewCardRamalHtml(e) { // Cria o HTML do "ramal" com os dados do DataBas
         </div>
     </form>
 `
-	return html
 }
 
 function NewCardSitesHtml(e) { // Cria o HTML do "ramal" com os dados do DataBase
