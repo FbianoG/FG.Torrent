@@ -36,6 +36,11 @@ O projeto está organizado nos seguintes diretórios dentro de `src/`:
 - Node.js instalado.
 - MongoDB configurado e conectado.
 
+Antes de iniciar o aplicativo, é necessário configurar algumas variáveis de ambiente essenciais para a conexão com o banco de dados e a definição da porta do servidor:
+
+- **MONGODB_URL**: URL de conexão ao MongoDB. Exemplo: `mongodb://localhost:27017/nomedobanco`
+- **PORT**: Porta em que o servidor Express será executado. Exemplo: `3000`
+
 ### Instalação
 
 ```bash
